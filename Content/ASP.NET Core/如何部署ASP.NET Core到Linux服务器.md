@@ -1,8 +1,8 @@
 # 如何部署ASP.NET Core 到Linux服务器
+
 我们开发的最终目的，是将开发后的东西发布网络上，以便自己及其他人使用。
 
 本篇博客介绍如果在 linux 上部署 ASP.NET Core应用，使用nginx+systemd 来管理我们的应用。
-
 
 ## 准备
 

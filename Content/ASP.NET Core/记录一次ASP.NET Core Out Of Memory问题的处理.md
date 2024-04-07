@@ -1,6 +1,7 @@
 # 记录一次ASP.NET Core Out Of Memory问题的处理
 
 ## 概要
+
 记录一次生产环境的异常事件，运维监控到CPU突然占用100%，其中一个docker 容器崩掉，经过一段时间的观察和搜索，最终通过 AppDomain.FirstChanceException去定位问题，因为错误使用了 LoggerFactory.Create而产生的Out of memory错误。
 
 ## 背景
