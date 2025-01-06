@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/markdown.css">
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <script src="/js/markdown.js"></script>
+    <title>OAuth授权码流程</title>
+    
+</head>
+<body class="px-4 sm:px-6 lg:px-8 dark:bg-neutral-900 pb-4">
+    <div class="container mx-auto flex mt-2" style="margin-bottom: 48px;">
+        <div class="sm:w-3/4 sm:pr-4 w-full markdown-content">
+        <h1 id="oauth授权码流程">OAuth授权码流程</h1>
+<p>假设我们有一个统一授权中心服务，称为IdentityServer.</p>
+<p>然后我们有一个网站应用，称为ServiceA.</p>
+<h2 id="跳转到认证中心">跳转到认证中心</h2>
+<p>在ServiceA中提供页面链接，跳转至统一授权中心。</p>
+<p>Endpoint:<code>/connect/authorize?</code></p>
+<p>链接参数如下:</p>
+<pre><code class="language-http">GET /connect/authorize?response_type=code&amp;client_id=s6BhdRkqt3&amp;state=af0ifjsldkj&amp;redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb HTTP/1.1
+
+</code></pre>
+<p>参数如下</p>
+<div class="language-javascript"><pre>
+client_id:test
+response_type:code
+state:123
+scope:api
+redirect_uri:http:<span class="comment">//127.0.0.1:8082/abc.html</span>
+</pre></div>
+<h2 id="用户验证">用户验证</h2>
+<p>认证中心应提供验证交互页面，如用户名密码登录页面。</p>
+<p>用户输入验证成功后，并提示应用请求的授权范围，点击同意后，在url中携带code信息，跳转至ServiceA页面。</p>
+<h2 id="获取token">获取Token</h2>
+<p>前端页面获取到code信息后，将code通过接口发送给ServiceA.</p>
+<p>ServiceA拿到code后，向统一授权中心服务换取token，然后返回给前端。</p>
+<pre><code class="language-http">POST /connect/token  HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+code:OX1jQs6_YT1A7vLztDylRm-Ut7wLf8RWUsNhQolQGBk
+grant_type:authorization_code
+client_id:test
+client_secret:JustLocalTest
+redirect_uri:http://127.0.0.1:8082/abc.html
+</code></pre>
+
+        </div>
+        <div class="w-1/4 mt-1 hidden sm:flex">
+            <div class="toc-block sticky top-2">
+ <p class="text-lg">导航</p>
+<ul class="toc">
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#跳转到认证中心'">跳转到认证中心</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#用户验证'">用户验证</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#获取token'">获取Token</a>
+</li>
+</ul>
+</div>
+
+        </div>
+    </div>
+    <div class="footer py-2 bottom-0 w-full fixed">
+      <div class="container mx-auto text-center">
+        <p class="text-neutral-600 dark:text-neutral-300 mb-0">
+        独思
+        <a class="text-blue-600" target="_blank" href="https://github.com/AterDev/EasyBlog">Powered by Ater Blog</a>
+        </p>
+      </div>
+    </div>
+</body>
+</html>

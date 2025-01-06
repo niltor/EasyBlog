@@ -1,0 +1,55 @@
+.tree ul,
+.tree li {
+  list-style: none;
+  list-style-type: none;
+  display: list-item;
+}
+
+.root-list>li {
+  margin-left: 0;
+}
+
+.root-list>li.space {
+  margin-left: 0;
+}
+
+.tree .caret {
+  cursor: pointer;
+  user-select: none;
+  display: block;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.tree .nested {
+  display: none;
+}
+
+.tree .active {
+  display: block;
+}
+
+.tree .caret::before {
+  position: absolute;
+  top: 4px;
+  left: 0px;
+  line-height: 16px;
+  content: url("./keyboard_arrow_right.svg");
+  display: inline-block;
+  padding: 0;
+}
+
+ul.nested>li.space {
+  margin-left: 21px;
+}
+
+.tree .space .text {
+  padding-left: 1rem;
+  display: block;
+  width: 100%;
+}
+
+.tree .caret-down::before {
+  transform: rotate(90deg);
+  transform-origin: center;
+}

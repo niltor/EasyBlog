@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/markdown.css">
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <script src="/js/markdown.js"></script>
+    <title>关于EF Core更新速度随时间越来越慢的解决办法</title>
+    
+</head>
+<body class="px-4 sm:px-6 lg:px-8 dark:bg-neutral-900 pb-4">
+    <div class="container mx-auto flex mt-2" style="margin-bottom: 48px;">
+        <div class="sm:w-3/4 sm:pr-4 w-full markdown-content">
+        <h1 id="关于ef-core更新速度随时间越来越慢的解决办法">关于EF Core更新速度随时间越来越慢的解决办法</h1>
+<h2 id="概要">概要</h2>
+<p>本篇主要介绍使用 <code>context.ChangeTracker.Clear()</code>方法，在通过循环进行批量更新时，通过手动清除跟踪实体以提高性能的示例。</p>
+<h2 id="背景">背景</h2>
+<p>最近在做一些数据分析时，遇到了一个问题，当我把计算结果更新到数据库时，一开始速度会很快，但随着时间的推移，更新速度会越来越慢。
+本篇博客就来说明这种现象的原因和解决办法。</p>
+<blockquote>
+<p>环境:<code>ASP.NET Core 7</code> 和 <code>EF Core 7</code>.</p>
+</blockquote>
+<h2 id="事例说明">事例说明</h2>
+<p>我有1000W已处理好的数据需要更新到数据库，这些数据我也是从数据库中一次性查询出来的，这样可以只进行一次查询，并使用<code>AsNoTracking()</code>提高查询效率，然后我对这些数据进行了并行计算，最后将计算完的结果更新到数据库。最费时的操作就是更新到数据库。</p>
+<p>请看以下代码示例:</p>
+<div class="language-csharp"><pre>
+<span class="keyword">var</span> <span class="variable">bc</span> = <span class="keyword">new</span> <span class="className">ConcurrentBag</span>&lt;List&lt;StockDailyKLineInfo&gt;&gt;<span class="controlKeyword">(</span><span class="controlKeyword">)</span>;
+<span class="comment">// 并行计算</span>
+<span class="keyword">var</span> <span class="variable">computeTasks</span> = <span class="variable">group</span>.<span class="function">AsParallel</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span>
+    .<span class="function">WithDegreeOfParallelism</span><span class="controlKeyword">(</span>Environment.ProcessorCount<span class="controlKeyword">)</span>
+    .<span class="function">WithExecutionMode</span><span class="controlKeyword">(</span>ParallelExecutionMode.ForceParallelism<span class="controlKeyword">)</span>
+    .<span class="function">Select</span><span class="controlKeyword">(</span><span class="keyword">async</span> g =&gt;
+    <span class="controlKeyword">{</span>
+        <span class="keyword">var</span> <span class="variable">computedData</span> = <span class="keyword">await</span> <span class="variable">service</span>.<span class="function">ComputeAsync</span><span class="controlKeyword">(</span><span class="variable">g</span>.<span class="function">ToList</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span><span class="controlKeyword">)</span>;
+        <span class="keyword">if</span> <span class="controlKeyword">(</span>computedData != <span class="keyword">null</span><span class="controlKeyword">)</span>
+        <span class="controlKeyword">{</span>
+            <span class="variable">bc</span>.<span class="function">Add</span><span class="controlKeyword">(</span>computedData<span class="controlKeyword">)</span>;
+        <span class="controlKeyword">}</span>
+    <span class="controlKeyword">}</span><span class="controlKeyword">)</span>;
+<span class="keyword">await</span> <span class="className">Task</span>.<span class="function">WhenAll</span><span class="controlKeyword">(</span>computeTasks<span class="controlKeyword">)</span>;
+<span class="comment">// 数据插入</span>
+<span class="keyword">var</span> <span class="variable">batchSize</span> = <span class="number">5000</span>;
+<span class="keyword">var</span> <span class="variable">items</span> = <span class="variable">bc</span>.<span class="function">SelectMany</span><span class="controlKeyword">(</span>x =&gt; x<span class="controlKeyword">)</span>.<span class="function">ToList</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span>;
+left = <span class="variable">items</span>.Count;
+_logger.<span class="function">LogInformation</span><span class="controlKeyword">(</span>$<span class="string">&quot;need update {left} daily!&quot;</span><span class="controlKeyword">)</span>;
+<span class="keyword">foreach</span> <span class="controlKeyword">(</span><span class="keyword">var</span> <span class="variable">batch</span> <span class="keyword">in</span> <span class="variable">items</span>.<span class="function">Chunk</span><span class="controlKeyword">(</span>batchSize<span class="controlKeyword">)</span><span class="controlKeyword">)</span>
+<span class="controlKeyword">{</span>
+    <span class="variable">context</span>.<span class="function">AttachRange</span><span class="controlKeyword">(</span>batch<span class="controlKeyword">)</span>;
+    <span class="keyword">foreach</span> <span class="controlKeyword">(</span><span class="keyword">var</span> <span class="variable">entity</span> <span class="keyword">in</span> batch<span class="controlKeyword">)</span>
+    <span class="controlKeyword">{</span>
+        <span class="keyword">var</span> <span class="variable">entry</span> = <span class="variable">context</span>.<span class="function">Entry</span><span class="controlKeyword">(</span>entity<span class="controlKeyword">)</span>;
+        <span class="variable">entry</span>.<span class="function">Property</span><span class="controlKeyword">(</span>e =&gt; <span class="variable">e</span>.A<span class="controlKeyword">)</span>.<span class="variable">IsModified</span> = <span class="keyword">true</span>;
+        <span class="variable">entry</span>.<span class="function">Property</span><span class="controlKeyword">(</span>e =&gt; <span class="variable">e</span>.B<span class="controlKeyword">)</span>.<span class="variable">IsModified</span> = <span class="keyword">true</span>;
+        <span class="variable">entry</span>.<span class="function">Property</span><span class="controlKeyword">(</span>e =&gt; <span class="variable">e</span>.C<span class="controlKeyword">)</span>.<span class="variable">IsModified</span> = <span class="keyword">true</span>;
+        <span class="variable">entry</span>.<span class="variable">State</span> = <span class="className">EntityState</span>.<span class="variable">Modified</span>;
+    <span class="controlKeyword">}</span>
+    <span class="keyword">var</span> <span class="variable">count</span> = <span class="keyword">await</span> <span class="variable">context</span>.<span class="function">SaveChangesAsync</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span>;
+<span class="controlKeyword">}</span>
+<span class="keyword">await</span> Console.<span class="className">Out</span>.<span class="function">WriteLineAsync</span><span class="controlKeyword">(</span><span class="string">&quot;[done] update all data&quot;</span><span class="controlKeyword">)</span>;
+</pre></div>
+<p>并行计算速度非常快，几秒就能都完成了。</p>
+<p>数据插入，我分批进行循环插入，每次5000条，通常不到1秒时间就能插入成功。但随着时间的推移，插入速度越来越慢。</p>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>由于我有1000W的数据插入，如果最终一次性提交，如果出现了异常，那么所有数据都不会插入成功，并且会等待很长的时间，并且在最终执行完成之前，你得不到任何信息，以预估可能花费的时间。所以我需要分批插入。</p>
+</div>
+<h2 id="原因">原因</h2>
+<p>EF Core 会在上下文中跟踪所有已加载或附加的实体。随着循环的进行，上下文将追踪越来越多的实体，这可能会导致性能下降。</p>
+<p><strong>也就是说在同一个<code>DbContext</code>上下文中，SaveChangesAsync()方法调用后，不会清除已更新的内容</strong>，这意味着追踪的实体越来越多，最终多达1000W，并且这些都是已经标记为要更新的内容，也意味着你每次都会更新更多的内容到数据库。</p>
+<h2 id="解决办法">解决办法</h2>
+<h3 id="只进行一次savechanges">只进行一次SaveChanges</h3>
+<p>既然每次<code>saveChanges</code>不会清除，那么最后我只提交一次不就行了么？但这个方案不符合实际需求，上面已经提到过了。</p>
+<h3 id="使用多个dbcontext">使用多个DbContext</h3>
+<p>既然 同一个<code>DbContext</code>下会出现这个问题，那么每次更新，我再创建一个新的DbContext不就可以了么？
+这个方法虽然可行，但对于1000W的数据来说，即使我每次更新1W条数据，也需要创建1000+次<code>DbContext</code>，也有一定的消耗。</p>
+<h3 id="清除追踪">清除追踪</h3>
+<p>既然问题是SaveChanges不会自动清除已追踪的更改，如果我可以手动去清除，不就可以了么？清除的操作比起创建新的<code>DbContext</code>实例，还是更快捷的。</p>
+<p>那么我们修改代码:</p>
+<div class="language-csharp"><pre>
+<span class="keyword">foreach</span> <span class="controlKeyword">(</span><span class="keyword">var</span> <span class="variable">batch</span> <span class="keyword">in</span> <span class="variable">items</span>.<span class="function">Chunk</span><span class="controlKeyword">(</span>batchSize<span class="controlKeyword">)</span><span class="controlKeyword">)</span>
+<span class="controlKeyword">{</span>
+    <span class="variable">context</span>.<span class="function">AttachRange</span><span class="controlKeyword">(</span>batch<span class="controlKeyword">)</span>;
+    <span class="keyword">foreach</span> <span class="controlKeyword">(</span><span class="keyword">var</span> <span class="variable">entity</span> <span class="keyword">in</span> batch<span class="controlKeyword">)</span>
+    <span class="controlKeyword">{</span>
+        <span class="keyword">var</span> <span class="variable">entry</span> = <span class="variable">context</span>.<span class="function">Entry</span><span class="controlKeyword">(</span>entity<span class="controlKeyword">)</span>;
+        <span class="variable">entry</span>.<span class="function">Property</span><span class="controlKeyword">(</span>e =&gt; <span class="variable">e</span>.A<span class="controlKeyword">)</span>.<span class="variable">IsModified</span> = <span class="keyword">true</span>;
+        <span class="variable">entry</span>.<span class="function">Property</span><span class="controlKeyword">(</span>e =&gt; <span class="variable">e</span>.B<span class="controlKeyword">)</span>.<span class="variable">IsModified</span> = <span class="keyword">true</span>;
+        <span class="variable">entry</span>.<span class="function">Property</span><span class="controlKeyword">(</span>e =&gt; <span class="variable">e</span>.C<span class="controlKeyword">)</span>.<span class="variable">IsModified</span> = <span class="keyword">true</span>;
+        <span class="variable">entry</span>.<span class="variable">State</span> = <span class="className">EntityState</span>.<span class="variable">Modified</span>;
+    <span class="controlKeyword">}</span>
+    <span class="keyword">var</span> <span class="variable">count</span> = <span class="keyword">await</span> <span class="variable">context</span>.<span class="function">SaveChangesAsync</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span>;
+    <span class="comment">// ⚒️ add this line</span>
+    <span class="variable">context</span>.<span class="className">ChangeTracker</span>.<span class="function">Clear</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span>;
+<span class="controlKeyword">}</span>
+</pre></div>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p><code>context.ChangeTracker.Clear()</code> 方法清除上下文中的所有已跟踪实体。这将重置更改跟踪器并清除其跟踪的所有实体，从而释放内存并提高性能。</p>
+</div>
+<h2 id="总结">总结</h2>
+<p><code>EF Core 7</code> 中已经添加了批量更新的方法，但这种方法也不适用于我遇到的场景，因为我不是按条件进行批量更新，而是每一条数据都需要更新。
+<code>context.ChangeTracker.Clear()</code>可以在这样的场景下发挥作用，在一些关联插入或更新的场景，为避免追踪带来的冲突问题，也可以通过该方法清除追踪，然后再手动建立关系，进行提交。</p>
+
+        </div>
+        <div class="w-1/4 mt-1 hidden sm:flex">
+            <div class="toc-block sticky top-2">
+ <p class="text-lg">导航</p>
+<ul class="toc">
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#概要'">概要</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#背景'">背景</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#事例说明'">事例说明</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#原因'">原因</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#解决办法'">解决办法</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#总结'">总结</a>
+</li>
+</ul>
+</div>
+
+        </div>
+    </div>
+    <div class="footer py-2 bottom-0 w-full fixed">
+      <div class="container mx-auto text-center">
+        <p class="text-neutral-600 dark:text-neutral-300 mb-0">
+        独思
+        <a class="text-blue-600" target="_blank" href="https://github.com/AterDev/EasyBlog">Powered by Ater Blog</a>
+        </p>
+      </div>
+    </div>
+</body>
+</html>

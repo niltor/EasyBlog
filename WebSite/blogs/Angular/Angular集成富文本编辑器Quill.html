@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/markdown.css">
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <script src="/js/markdown.js"></script>
+    <title>Angular集成Quill</title>
+    
+</head>
+<body class="px-4 sm:px-6 lg:px-8 dark:bg-neutral-900 pb-4">
+    <div class="container mx-auto flex mt-2" style="margin-bottom: 48px;">
+        <div class="sm:w-3/4 sm:pr-4 w-full markdown-content">
+        <h1 id="angular集成quill">Angular集成Quill</h1>
+<h2 id="需求">需求</h2>
+<p>富文本编辑器是内容发布的常规需求，我们需要一些简单易用且具有一定自定义功能的富文本编辑器。</p>
+<p>其中一个很重要的功能是可以上传文件到我们自己的后台服务。</p>
+<h2 id="在angular中使用quill">在Angular中使用Quill</h2>
+<p>我们这里使用 <a href="https://github.com/KillerCodeMonkey/ngx-quill">ngx-quill</a>来实现我们的需求。</p>
+<h2 id="安装">安装</h2>
+<p>我们一共需要安装两个包，一个类型文件：</p>
+<div class="language-json"><pre>
+<span class="jsonString">&quot;dependencies&quot;</span>: {
+    // ...
+    <span class="jsonString">&quot;ngx-quill&quot;</span>: <span class="jsonString">&quot;^22.0.0&quot;</span>,
+    <span class="jsonKey">&quot;quill&quot;</span>: <span class="jsonString">&quot;^1.3.7&quot;</span>,
+  }
+  <span class="jsonString">&quot;devDependencies&quot;</span>: {
+    // ...
+    <span class="jsonString">&quot;@types/quill&quot;</span>: <span class="jsonString">&quot;^1.3.10&quot;</span>,
+  }
+</pre></div>
+<h2 id="引用">引用</h2>
+<p>在<code>angular.json</code>中引用需要的css和js文件，如下所示</p>
+<div class="language-json"><pre>
+// ...
+<span class="jsonString">&quot;architect&quot;</span>: {
+  <span class="jsonKey">&quot;build&quot;</span>: {
+      // ...
+      <span class="jsonString">&quot;styles&quot;</span>: [
+          <span class="jsonString">&quot;./node_modules/@angular/material/prebuilt-themes/indigo-pink.css&quot;</span>,
+          <span class="jsonString">&quot;./node_modules/quill/dist/quill.snow.css&quot;</span>,
+          <span class="jsonString">&quot;src/styles.css&quot;</span>
+      ],
+      <span class="jsonKey">&quot;scripts&quot;</span>: [
+          <span class="jsonString">&quot;./node_modules/quill/dist/quill.min.js&quot;</span>
+      ],
+      <span class="jsonKey">&quot;allowedCommonJsDependencies&quot;</span>: [
+          <span class="jsonString">&quot;quill&quot;</span>
+      ]
+      },
+  }
+</pre></div>
+<h2 id="使用">使用</h2>
+<p>在你需要使用富文本编辑器的模块中，导入模块：</p>
+<div class="language-typescript"><pre>
+@NgModule({
+  imports: [
+    ...,
+    QuillModule.forRoot()
+  ],
+  ...
+})
+<span class="keyword">class</span> YourModule { ... }
+</pre></div>
+<p>然后使用组件 <code>&lt;quill-editor&gt;&lt;/quill-editor&gt;</code>。</p>
+<p>简单的使用可直接参考官方仓库文档，我这里会着重说明一下，如何使用自定义<code>toolbar</code>，以及如何<code>自定义文件上传事件</code>。</p>
+<h2 id="自定义toolbar">自定义toolbar</h2>
+<p>自定义toolbar 可通过绑定modules去实现，直接看代码:</p>
+<h3 id="页面实现">页面实现</h3>
+<p><code>component.html</code></p>
+<div class="language-html"><pre>
+&lt;quill-editor formControlName=&quot;content&quot; [modules]=&quot;quillModules&quot; placeholder=&quot;insert text&quot;
+  [styles]=&quot;{height:&#39;150px&#39;}&quot;&gt;<span class="htmlTagDelimiter">&lt;/</span><span class="htmlElementName">quill-editor</span><span class="htmlTagDelimiter">&gt;</span>
+</pre></div>
+<h3 id="ts">TS</h3>
+<p>可以在任意ts文件中定义好选项内容，然后在组件中去使用它。</p>
+<p><code>cosnt.ts</code></p>
+<div class="language-typescript"><pre>
+<span class="keyword">export</span> <span class="keyword">const</span> QuillSimpleModules = {
+  toolbar: [
+    [{ <span class="string">&#39;size&#39;</span>: [<span class="string">&#39;small&#39;</span>, <span class="keyword">false</span>, <span class="string">&#39;large&#39;</span>] }],
+    [{ <span class="string">&#39;color&#39;</span>: [] }, { <span class="string">&#39;background&#39;</span>: [] }],
+    [<span class="string">&#39;bold&#39;</span>, <span class="string">&#39;italic&#39;</span>, <span class="string">&#39;underline&#39;</span>, <span class="string">&#39;strike&#39;</span>, <span class="string">&#39;clean&#39;</span>],        <span class="comment">// toggled buttons</span>
+    [<span class="string">&#39;blockquote&#39;</span>, <span class="string">&#39;code-block&#39;</span>, <span class="string">&#39;link&#39;</span>],
+    [{ <span class="string">&#39;list&#39;</span>: <span class="string">&#39;ordered&#39;</span> }, { <span class="string">&#39;list&#39;</span>: <span class="string">&#39;bullet&#39;</span> }],
+    [{ <span class="string">&#39;direction&#39;</span>: <span class="string">&#39;rtl&#39;</span> }],                         <span class="comment">// text direction</span>
+  ]
+};
+</pre></div>
+<p><code>component.ts</code></p>
+<div class="language-typescript"><pre>
+<span class="keyword">export</span> <span class="keyword">class</span> DetailComponent <span class="keyword">implements</span> OnInit {
+  <span class="comment">// ...</span>
+  quillModules = QuillSimpleModules;
+  <span class="comment">// ...</span>
+}
+</pre></div>
+<h3 id="完整toolbar">完整toolbar</h3>
+<div class="language-typescript"><pre>
+<span class="keyword">const</span> modules = {
+  toolbar: [
+    [<span class="string">&#39;bold&#39;</span>, <span class="string">&#39;italic&#39;</span>, <span class="string">&#39;underline&#39;</span>, <span class="string">&#39;strike&#39;</span>],        <span class="comment">// toggled buttons</span>
+    [<span class="string">&#39;blockquote&#39;</span>, <span class="string">&#39;code-block&#39;</span>],
+    [{ <span class="string">&#39;header&#39;</span>: 1 }, { <span class="string">&#39;header&#39;</span>: 2 }],               <span class="comment">// custom button values</span>
+    [{ <span class="string">&#39;list&#39;</span>: <span class="string">&#39;ordered&#39;</span>}, { <span class="string">&#39;list&#39;</span>: <span class="string">&#39;bullet&#39;</span> }],
+    [{ <span class="string">&#39;script&#39;</span>: <span class="string">&#39;sub&#39;</span>}, { <span class="string">&#39;script&#39;</span>: <span class="string">&#39;super&#39;</span> }],      <span class="comment">// superscript/subscript</span>
+    [{ <span class="string">&#39;indent&#39;</span>: <span class="string">&#39;-1&#39;</span>}, { <span class="string">&#39;indent&#39;</span>: <span class="string">&#39;+1&#39;</span> }],          <span class="comment">// outdent/indent</span>
+    [{ <span class="string">&#39;direction&#39;</span>: <span class="string">&#39;rtl&#39;</span> }],                         <span class="comment">// text direction</span>
+    [{ <span class="string">&#39;size&#39;</span>: [<span class="string">&#39;small&#39;</span>, <span class="keyword">false</span>, <span class="string">&#39;large&#39;</span>, <span class="string">&#39;huge&#39;</span>] }],  <span class="comment">// custom dropdown</span>
+    [{ <span class="string">&#39;header&#39;</span>: [1, 2, 3, 4, 5, 6, <span class="keyword">false</span>] }],
+    [{ <span class="string">&#39;color&#39;</span>: [] }, { <span class="string">&#39;background&#39;</span>: [] }],          <span class="comment">// dropdown with defaults from theme</span>
+    [{ <span class="string">&#39;font&#39;</span>: [] }],
+    [{ <span class="string">&#39;align&#39;</span>: [] }],
+    [<span class="string">&#39;clean&#39;</span>],                                         <span class="comment">// remove formatting button</span>
+    [<span class="string">&#39;link&#39;</span>, <span class="string">&#39;image&#39;</span>, <span class="string">&#39;video&#39;</span>]                         <span class="comment">// link and image, video</span>
+  ]
+};
+</pre></div>
+<h2 id="自定义文件上传">自定义文件上传</h2>
+<p>Quill通过自定义Handler去重写控件的实现。</p>
+<h3 id="添加自定义处理事件">添加自定义处理事件</h3>
+<p>我们将通过<code>onEditorCreated</code>函数获取Quill对象，并添加自定义事件。</p>
+<p><code>create.component.html</code></p>
+<div class="language-html"><pre>
+&lt;quill-editor formControlName=&quot;content&quot; [styles]=&quot;{minHeight:&#39;500px&#39;}&quot;
+  (onEditorCreated)=&quot;editorCreated($event)&quot;&gt;<span class="htmlTagDelimiter">&lt;/</span><span class="htmlElementName">quill-editor</span><span class="htmlTagDelimiter">&gt;</span>
+</pre></div>
+<p>使用quill的<code>addHandler</code>方法添加自定义函数。</p>
+<p><code>create.component.ts</code></p>
+<div class="language-typescript"><pre>
+<span class="keyword">export</span> <span class="keyword">class</span> CreateComponent <span class="keyword">implements</span> OnInit {
+  <span class="comment">// ...</span>
+  editor!: Quill;
+  <span class="comment">// ...</span>
+  editorCreated(editor: Quill): <span class="keyword">void</span> {
+    <span class="keyword">this</span>.editor = editor;
+    <span class="keyword">this</span>.editor.getModule(<span class="string">&#39;toolbar&#39;</span>).addHandler(<span class="string">&#39;image&#39;</span>, <span class="keyword">this</span>.selectImage);
+  }
+}
+</pre></div>
+<p>实现自定义文件上传函数，我这里以上传图片为例：</p>
+<p><code>create.component.ts</code></p>
+<div class="language-typescript"><pre>
+selectImage = () =&gt; {
+    <span class="keyword">const</span> input: <span class="keyword">any</span> = document.createElement(<span class="string">&#39;input&#39;</span>);
+    input.setAttribute(<span class="string">&#39;type&#39;</span>, <span class="string">&#39;file&#39;</span>);
+    input.setAttribute(<span class="string">&#39;accept&#39;</span>, <span class="string">&#39;image/*&#39;</span>)
+    input.click();
+    input.onchange = () =&gt; {
+      <span class="keyword">const</span> file = input.files[0];
+      <span class="keyword">if</span> (file &amp;&amp; file.type.startsWith(<span class="string">&#39;image/&#39;</span>)) {
+        <span class="keyword">this</span>.uploadImage(file);
+      } <span class="keyword">else</span> {
+        console.warn(<span class="string">&#39;You could only upload images.&#39;</span>);
+      }
+    };
+  }
+  uploadImage(file: File): <span class="keyword">void</span> {
+    <span class="keyword">const</span> fd = <span class="keyword">new</span> FormData();
+    fd.append(<span class="string">&#39;upload&#39;</span>, file);
+    <span class="keyword">this</span>.commonSrv.uploadImg(fd)
+      .subscribe({
+        next: (res) =&gt; {
+          <span class="keyword">if</span> (res) {
+            <span class="keyword">const</span> range = <span class="keyword">this</span>.editor.getSelection(<span class="keyword">true</span>);
+            <span class="keyword">this</span>.editor.insertEmbed(range.index, <span class="string">&#39;image&#39;</span>, res.url);
+          } <span class="keyword">else</span> {
+            <span class="keyword">this</span>.snb.open(<span class="string">&#39;&#39;</span>);
+          }
+        },
+        error: (error) =&gt; {
+          <span class="keyword">this</span>.snb.open(error.detail);
+        }
+      });
+  }
+</pre></div>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>selectImage方法使用箭头函数，这样才能有效调用当前类的方法this.uploadImage(file)。
+上传成功后，我们使用<code>insertEmbed</code>方法向edtior中插入图片。</p>
+</div>
+<h3 id="获取提交的内容">获取提交的内容</h3>
+<p>我们现在已经实现图片的上传和展示，但在我们提交表单时，会发现formControlName绑定的变量，并没有包含我们使用<code>insertEmbed</code>插入的内容。
+由于安全问题，quill并不建议使用html去渲染或存储内容。如果我们确实需要最终的html，可以使用</p>
+<div class="language-typescript"><pre>
+<span class="keyword">this</span>.editor.root.innerHTML;
+</pre></div>
+<p>获取最终完整的html格式内容，然后提交到后台进行保存。</p>
+
+        </div>
+        <div class="w-1/4 mt-1 hidden sm:flex">
+            <div class="toc-block sticky top-2">
+ <p class="text-lg">导航</p>
+<ul class="toc">
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#需求'">需求</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#在angular中使用quill'">在Angular中使用Quill</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#安装'">安装</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#引用'">引用</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#使用'">使用</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#自定义toolbar'">自定义toolbar</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#自定义文件上传'">自定义文件上传</a>
+</li>
+</ul>
+</div>
+
+        </div>
+    </div>
+    <div class="footer py-2 bottom-0 w-full fixed">
+      <div class="container mx-auto text-center">
+        <p class="text-neutral-600 dark:text-neutral-300 mb-0">
+        独思
+        <a class="text-blue-600" target="_blank" href="https://github.com/AterDev/EasyBlog">Powered by Ater Blog</a>
+        </p>
+      </div>
+    </div>
+</body>
+</html>

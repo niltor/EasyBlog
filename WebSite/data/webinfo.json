@@ -1,15 +1,17 @@
-{
+﻿{
   "Name": "独思",
-  "Description": "\uD83D\uDDFDTo be a 👨",
+  "Description": "\uD83D\uDDFDTo be a \uD83D\uDC68",
   "AuthorName": "NilTor",
+  "ContetPath": "./Content",
+  "OutputPath": "./WebSite",
+  "Icon": null,
+  "Logo": null,
   "BaseHref": "/",
-  "ContentPath": "./Content",
   "Domain": "https://dusi.dev",
   "DocInfos": [
     {
       "Name": "Ater.Dry",
-      "Language": [
-        "zh-cn",
+      "Languages": [
         "en-us"
       ],
       "Versions": [

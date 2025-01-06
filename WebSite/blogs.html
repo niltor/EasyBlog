@@ -1,0 +1,402 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>独思-Blog</title>
+    <meta name="description" content="@{Description}" />
+    <base href="/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <script>const baseUrl = '/';</script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="/js/blogs.js"></script>
+    <style>
+        .dropdown:focus-within .dropdown-content {
+          display: block;
+        }
+    </style>
+</head>
+
+<body class="dark:bg-neutral-900">
+    <div class="text-white py-2 bg-block">
+    <div class="container mx-auto flex items-center space-x-4">
+      <div class="flex-none">
+        <a href="/" class="text-2xl font-semibold hidden sm:block text-blue-600">独思</a>
+      </div>
+      <div class="flex-grow text-left flex space-x-4 items-center">
+         <a href="/blogs.html" class="block py-2 text text-lg">Blogs</a>
+<div class="relative dropdown">
+  <div>
+    <button type="button" class="flex items-center gap-x-1 text text-lg">
+      Docs
+      <svg class="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+        data-slot="icon">
+        <path fill-rule="evenodd"
+          d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+          clip-rule="evenodd" />
+      </svg>
+    </button>
+  </div>
+  <div class="absolute z-10 mt-2 w-56 origin-top-right rounded-md bg-card dropdown-content hidden" tabindex="-1">
+    <div class="py-1" role="none">
+      
+    </div>
+  </div>
+</div>
+<a href="/about.html" target="_blank" class="block py-2 text text-lg ">About</a>
+
+      </div>
+      <div class="flex-none flex items-center">
+        <input id="searchText" placeholder="博客标题"
+          class="px-4 py-2 border border-gray-600 rounded-lg dark:bg-neutral-800 text-black dark:text-white focus:outline-none" />
+        <button id="searchBtn" class="ml-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+          搜索
+        </button>
+      </div>
+    </div>
+    </div>
+
+    <div class="container mx-auto mt-2" style="margin-bottom: 48px;">
+    <div class="flex">
+        <div class="sm:w-3/4 sm:pr-4 w-full">
+        <!-- 博客卡片列表 -->
+        <div class="px-3 bg-white dark:bg-neutral-900" id="blogList">
+            <!-- 博客卡片内容 -->
+            <div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/Angular\Angular18 升级到Angular19.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 Angular18 升级到Angular19</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T16:16:23+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/生产力\TypingLearn解决了我在学习英语中的一大痛点.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 TypingLearn解决了我在学习英语中的一大痛点</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/生产力\VS Code 代码片段编写教程.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 VS Code 代码片段编写教程</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/生产力\禁用Windows的网络搜索，以实现秒开应用程序.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 禁用Windows的网络搜索，以实现秒开应用程序</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/docker\dapr docker compose 配置示例.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 dapr docker compose 配置示例</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/技术分享\git 常用命令教程.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 git 常用命令教程</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/技术分享\[EasyBlog] Have your own blog in 5 minutes.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 [EasyBlog] Have your own blog in 5 minutes</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/docker\asp.net core 集成前端 Dockerfile示例.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 asp.net core 集成前端 Dockerfile示例</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/Angular\Angular集成富文本编辑器Quill.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 Angular集成富文本编辑器Quill</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/Angular\升级到Angular 16.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 升级到Angular 16</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/ASP.NET Core\基于OpenIddict实现统一验证服务.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 基于OpenIddict实现统一验证服务</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/ASP.NET Core\如何部署ASP.NET Core到Linux服务器.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 如何部署ASP.NET Core到Linux服务器</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/ASP.NET Core\自定义EF Core 的全局筛选，软删除以及公共字段.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 自定义EF Core 的全局筛选，软删除以及公共字段</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/ASP.NET Core\记录一次ASP.NET Core Out Of Memory问题的处理.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 记录一次ASP.NET Core Out Of Memory问题的处理</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/CICD\GitLab CICD配置.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 GitLab CICD配置</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/CICD\使用docfx通过GitHub actions发布到GitHub Page.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 使用docfx通过GitHub actions发布到GitHub Page</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/Viewpoint\2023 5月 AI 重要内容汇总.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 2023 5月 AI 重要内容汇总</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/ASP.NET Core\使用dotnet Aspire Dashboard.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 使用dotnet Aspire Dashboard</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/ASP.NET Core\关于EF Core 更新速度随时间越来越慢的解决办法.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 关于EF Core 更新速度随时间越来越慢的解决办法</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/ASP.NET Core\使用EPPlus导入导出Excel示例.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 使用EPPlus导入导出Excel示例</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/ASP.NET Core\OAuth的授权码验证流程.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 OAuth的授权码验证流程</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/ASP.NET Core\Web开发教程系列-1 教程说明.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 Web开发教程系列-1 教程说明</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+<div class="w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2">
+    <div class="px-6 py-3">
+        <div class="font-bold text-xl mb-2">
+            <a href = "/blogs/.NET\使用dotnet 创建npm包.html" target="_blank" class="block text-lg py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">📑 使用dotnet 创建npm包</a>
+        </div>
+        <p class="text-neutral-700 text-base dark:text-neutral-300">
+            👨‍💻 NilTor
+            &nbsp;&nbsp;
+            ⏱️ <span class="publish-time" data-time="2024-12-02T11:28:43+08:00"></span> 
+        </p>
+    </div>
+</div>
+
+        </div>
+    </div>
+
+    <div class="w-1/4 mt-1 hidden sm:block">
+        <!-- 分类 -->
+        <div id="catalog-list" class="rounded-lg shadow-md p-4 dark:bg-neutral-800">
+<div class="text-xl font-semibold dark:text-neutral-300">分类</div>
+<span data-catalog="all" class="filter-item text-lg block py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">
+    全部 [23]
+</span>
+<span data-catalog=".NET" class="filter-item text-lg block py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">
+    .NET [1]
+</span>
+<span data-catalog="Angular" class="filter-item text-lg block py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">
+    Angular [3]
+</span>
+<span data-catalog="ASP.NET Core" class="filter-item text-lg block py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">
+    ASP.NET Core [9]
+</span>
+<span data-catalog="CICD" class="filter-item text-lg block py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">
+    CICD [2]
+</span>
+<span data-catalog="docker" class="filter-item text-lg block py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">
+    docker [2]
+</span>
+<span data-catalog="Viewpoint" class="filter-item text-lg block py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">
+    Viewpoint [1]
+</span>
+<span data-catalog="技术分享" class="filter-item text-lg block py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">
+    技术分享 [2]
+</span>
+<span data-catalog="生产力" class="filter-item text-lg block py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">
+    生产力 [3]
+</span>
+</div>
+<div id="date-list" class="rounded-lg shadow-md p-4 dark:bg-neutral-800 mt-2">
+<div class="text-xl font-semibold dark:text-neutral-300">存档</div>
+<span data-date="all" class="filter-item text-lg block py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">
+    全部 [23]
+</span>
+<span data-date="2024-12" class="filter-item text-lg block py-2 text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">
+    2024-12 [23]
+</span>
+</div>
+
+    </div>
+    </div>
+    </div>
+
+  <div class="footer py-2 bottom-0 w-full fixed">
+    <div class="container mx-auto text-center">
+        <p class="text-neutral-600 dark:text-neutral-300 mb-0">
+        独思
+        <a class="text-blue-600" target="_blank" href="https://github.com/AterDev/EasyBlog">Powered by Ater Blog</a>
+        </p>
+    </div>
+  </div>
+</body>
+</html>

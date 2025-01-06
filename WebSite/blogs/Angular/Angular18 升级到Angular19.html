@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/markdown.css">
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <script src="/js/markdown.js"></script>
+    <title>Angular18 升级到Angular19</title>
+    
+</head>
+<body class="px-4 sm:px-6 lg:px-8 dark:bg-neutral-900 pb-4">
+    <div class="container mx-auto flex mt-2" style="margin-bottom: 48px;">
+        <div class="sm:w-3/4 sm:pr-4 w-full markdown-content">
+        <h1 id="angular18-升级到angular19">Angular18 升级到Angular19</h1>
+<p>基本包的版本升级这里就不再多说了，着重说一下，升级之后，代码要做怎么样的处理。</p>
+<p>我这里使用了<code>Angular Material</code>，所以要进行一些处理。</p>
+<h2 id="scss文件更新">SCSS文件更新</h2>
+<p>当你使用SCSS时，一些用法已经被遗弃，必须使用新的写法，如:</p>
+<h3 id="使用use-替换-import">使用@use 替换 @import</h3>
+<p>将@import 全部修改成使用<code>@use 'path' as xx</code>的形式,</p>
+<p>然后在使用变量前加上<code>xx</code>前缀。</p>
+<h3 id="darken与lighten">darken与lighten</h3>
+<p>darken 与lighten 都被废弃了，需要修改成
+<code>color.adjust</code>.</p>
+<p>如
+<code>background-color: lighten($color: vars.$light-primary-color, $amount: 8%);</code></p>
+<p>变成</p>
+<p><code>background-color: color.adjust($color: vars.$light-primary-color, $lightness: 8%);</code></p>
+<h3 id="将m2升级到m3">将M2升级到M3</h3>
+<p>主题和一些函数的定义和使用都发生了变化。</p>
+<p>最好重写主题内容，通过<code>ng generate @angular/material:theme-color</code>生成新的主题模板.</p>
+
+        </div>
+        <div class="w-1/4 mt-1 hidden sm:flex">
+            <div class="toc-block sticky top-2">
+ <p class="text-lg">导航</p>
+<ul class="toc">
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#scss文件更新'">SCSS文件更新</a>
+</li>
+</ul>
+</div>
+
+        </div>
+    </div>
+    <div class="footer py-2 bottom-0 w-full fixed">
+      <div class="container mx-auto text-center">
+        <p class="text-neutral-600 dark:text-neutral-300 mb-0">
+        独思
+        <a class="text-blue-600" target="_blank" href="https://github.com/AterDev/EasyBlog">Powered by Ater Blog</a>
+        </p>
+      </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/markdown.css">
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <script src="/js/markdown.js"></script>
+    <title>使用EPPlus导入导出Excel示例</title>
+    
+</head>
+<body class="px-4 sm:px-6 lg:px-8 dark:bg-neutral-900 pb-4">
+    <div class="container mx-auto flex mt-2" style="margin-bottom: 48px;">
+        <div class="sm:w-3/4 sm:pr-4 w-full markdown-content">
+        <h1 id="使用epplus导入导出excel示例">使用EPPlus导入导出Excel示例</h1>
+<div class="language-csharp"><pre>
+<span class="keyword">using</span> OfficeOpenXml;
+<span class="keyword">using</span> OfficeOpenXml.<span class="className">Export</span>.<span class="variable">ToCollection</span>;
+<span class="keyword">using</span> Share.<span class="className">Models</span>.<span class="variable">UserWordsDtos</span>;
+<span class="keyword">namespace</span> <span class="className">Application</span>.<span class="variable">Services</span>;
+<span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span>
+<span class="xmlDocTag">///</span><span class="xmlDocComment"> excel 操作类</span>
+<span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="className">ExcelService</span>
+<span class="controlKeyword">{</span>
+    <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> <span class="variable">MimeType</span> = <span class="string">&quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;</span>;
+    <span class="keyword">public</span> <span class="function">ExcelService</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span>
+    <span class="controlKeyword">{</span>
+    <span class="controlKeyword">}</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span>
+    <span class="xmlDocTag">///</span><span class="xmlDocComment"> 快捷导出</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;typeparam name=&quot;T&quot;&gt;</span><span class="xmlDocTag">&lt;/typeparam&gt;</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;param name=&quot;data&quot;&gt;</span><span class="xmlDocTag">&lt;/param&gt;</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;param name=&quot;sheetName&quot;&gt;</span><span class="xmlDocTag">&lt;/param&gt;</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;param name=&quot;hasTitle&quot;&gt;</span><span class="xmlDocComment">是否包含标题&lt;/param&gt;</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;returns&gt;</span><span class="xmlDocTag">&lt;/returns&gt;</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">async</span> <span class="className">Task</span>&lt;<span class="symbol">Stream</span>&gt; <span class="function">ExportAsync</span>&lt;T&gt;<span class="controlKeyword">(</span><span class="className">IEnumerable</span>&lt;<span class="symbol">T</span>&gt; data, <span class="keyword">string</span> <span class="variable">sheetName</span> = <span class="string">&quot;sheet1&quot;</span>, <span class="keyword">bool</span> <span class="variable">hasTitle</span> = <span class="keyword">true</span><span class="controlKeyword">)</span>
+    <span class="controlKeyword">{</span>
+        <span class="keyword">var</span> <span class="variable">stream</span> = <span class="keyword">new</span> <span class="className">MemoryStream</span>();
+        <span class="keyword">using</span> <span class="controlKeyword">(</span><span class="keyword">var</span> <span class="variable">package</span> = <span class="keyword">new</span> <span class="className">ExcelPackage</span><span class="controlKeyword">(</span>stream<span class="controlKeyword">)</span><span class="controlKeyword">)</span>
+        <span class="controlKeyword">{</span>
+            <span class="className">ExcelWorksheet</span> <span class="variable">sheet</span> = <span class="variable">package</span>.Workbook.<span class="className">Worksheets</span>.<span class="function">Add</span><span class="controlKeyword">(</span>sheetName<span class="controlKeyword">)</span>;
+            <span class="keyword">var</span> <span class="variable">list</span> = <span class="variable">data</span>.<span class="function">ToList</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span>;
+            <span class="variable">sheet</span>.Cells<span class="controlKeyword">[</span><span class="number">1</span>, <span class="number">1</span><span class="controlKeyword">]</span>.<span class="function">LoadFromCollection</span><span class="controlKeyword">(</span>list, hasTitle<span class="controlKeyword">)</span>;
+            <span class="keyword">await</span> <span class="variable">package</span>.<span class="function">SaveAsync</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span>;
+        <span class="controlKeyword">}</span>
+        <span class="variable">stream</span>.<span class="variable">Position</span> = <span class="number">0</span>;
+        <span class="keyword">return</span> stream;
+    <span class="controlKeyword">}</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span>
+    <span class="xmlDocTag">///</span><span class="xmlDocComment"> 快捷导入</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;typeparam name=&quot;T&quot;&gt;</span><span class="xmlDocTag">&lt;/typeparam&gt;</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;param name=&quot;stream&quot;&gt;</span><span class="xmlDocTag">&lt;/param&gt;</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;param name=&quot;sheetName&quot;&gt;</span><span class="xmlDocTag">&lt;/param&gt;</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;param name=&quot;hasTitle&quot;&gt;</span><span class="xmlDocComment">是否包含标题&lt;/param&gt;</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;returns&gt;</span><span class="xmlDocTag">&lt;/returns&gt;</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="className">List</span>&lt;<span class="symbol">T</span>&gt; <span class="function">Import</span>&lt;T&gt;<span class="controlKeyword">(</span>Stream stream, <span class="keyword">string</span>? sheetName = <span class="keyword">null</span>, <span class="keyword">bool</span> <span class="variable">hasTitle</span> = <span class="keyword">true</span><span class="controlKeyword">)</span>
+    <span class="controlKeyword">{</span>
+        <span class="keyword">var</span> <span class="variable">data</span> = <span class="keyword">new</span> <span class="className">List</span>&lt;T&gt;();
+        <span class="keyword">using</span> <span class="keyword">var</span> <span class="variable">package</span> = <span class="keyword">new</span> <span class="className">ExcelPackage</span><span class="controlKeyword">(</span>stream<span class="controlKeyword">)</span>;
+        <span class="className">ExcelWorksheet</span> <span class="variable">sheet</span> = sheetName == <span class="keyword">null</span> ? <span class="variable">package</span>.Workbook.Worksheets<span class="controlKeyword">[</span><span class="number">0</span><span class="controlKeyword">]</span> : <span class="variable">package</span>.Workbook.Worksheets<span class="controlKeyword">[</span>sheetName<span class="controlKeyword">]</span>;
+        + <span class="keyword">var</span> <span class="variable">a</span>=<span class="string">&quot;&quot;</span>;
+        <span class="keyword">var</span> <span class="variable">rows</span> = <span class="variable">sheet</span>.<span class="className">Dimension</span>.<span class="variable">Rows</span>;
+        <span class="keyword">var</span> <span class="variable">columns</span> = <span class="variable">sheet</span>.<span class="className">Dimension</span>.<span class="variable">Columns</span>;
+        <span class="keyword">var</span> <span class="variable">range</span> = <span class="variable">sheet</span>.<span class="className">Dimension</span>.<span class="variable">Address</span>;
+        data = <span class="variable">sheet</span>.Cells<span class="controlKeyword">[</span>range<span class="controlKeyword">]</span>.<span class="className">ToCollection</span>&lt;<span class="symbol">T</span>&gt;<span class="controlKeyword">(</span>options =&gt;
+        <span class="controlKeyword">{</span>
+            <span class="variable">options</span>.<span class="variable">HeaderRow</span> = hasTitle ? <span class="number">0</span> : <span class="number">1</span>;
+            <span class="variable">options</span>.<span class="variable">DataStartRow</span> = hasTitle ? <span class="number">1</span> : <span class="number">0</span>;
+            <span class="variable">options</span>.<span class="variable">ConversionFailureStrategy</span> = <span class="className">ToCollectionConversionFailureStrategy</span>.<span class="variable">SetDefaultValue</span>;
+        <span class="controlKeyword">}</span><span class="controlKeyword">)</span>;
+        <span class="keyword">return</span> data;
+    <span class="controlKeyword">}</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span>
+    <span class="xmlDocTag">///</span><span class="xmlDocComment"> 导入用户词典</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;param name=&quot;stream&quot;&gt;</span><span class="xmlDocTag">&lt;/param&gt;</span>
+    <span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;returns&gt;</span><span class="xmlDocTag">&lt;/returns&gt;</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="className">List</span>&lt;<span class="symbol">UserImportWordDto</span>&gt; <span class="function">ImportUserWords</span><span class="controlKeyword">(</span>Stream stream<span class="controlKeyword">)</span>
+    <span class="controlKeyword">{</span>
+        <span class="keyword">var</span> <span class="variable">data</span> = <span class="keyword">new</span> <span class="className">List</span>&lt;UserImportWordDto&gt;();
+        <span class="keyword">using</span> <span class="keyword">var</span> <span class="variable">package</span> = <span class="keyword">new</span> <span class="className">ExcelPackage</span><span class="controlKeyword">(</span>stream<span class="controlKeyword">)</span>;
+        <span class="className">ExcelWorksheet</span> <span class="variable">sheet</span> = <span class="variable">package</span>.Workbook.Worksheets<span class="controlKeyword">[</span><span class="number">0</span><span class="controlKeyword">]</span>;
+        <span class="keyword">for</span> <span class="controlKeyword">(</span><span class="keyword">var</span> <span class="variable">row</span> = <span class="variable">sheet</span>.Dimension.<span class="className">Start</span>.<span class="variable">Row</span> + <span class="number">1</span>; row &lt;= <span class="variable">sheet</span>.Dimension.<span class="className">End</span>.<span class="variable">Row</span>; row++<span class="controlKeyword">)</span>
+        <span class="controlKeyword">{</span>
+            <span class="keyword">var</span> <span class="variable">word</span> = <span class="keyword">new</span> <span class="className">UserImportWordDto</span>()
+            <span class="controlKeyword">{</span>
+                <span class="variable">Text</span> = <span class="variable">sheet</span>.Cells<span class="controlKeyword">[</span>row, <span class="number">1</span><span class="controlKeyword">]</span>.<span class="className">Value</span>.<span class="function">ToString</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span> ?? <span class="string">&quot;&quot;</span>,
+                <span class="variable">PhoneticSymbols</span> = <span class="variable">sheet</span>.Cells<span class="controlKeyword">[</span>row, <span class="number">2</span><span class="controlKeyword">]</span>.Value?.<span class="function">ToString</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span>,
+                <span class="variable">Translate</span> = <span class="variable">sheet</span>.Cells<span class="controlKeyword">[</span>row, <span class="number">3</span><span class="controlKeyword">]</span>.Value?.<span class="function">ToString</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span> ?? <span class="string">&quot;&quot;</span>,
+                <span class="variable">ChapterName</span> = <span class="variable">sheet</span>.Cells<span class="controlKeyword">[</span>row, <span class="number">4</span><span class="controlKeyword">]</span>.Value?.<span class="function">ToString</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span>
+            <span class="controlKeyword">}</span>;
+            <span class="variable">data</span>.<span class="function">Add</span><span class="controlKeyword">(</span>word<span class="controlKeyword">)</span>;
+        <span class="controlKeyword">}</span>
+        <span class="keyword">return</span> data;
+    <span class="controlKeyword">}</span>
+<span class="controlKeyword">}</span>
+</pre></div>
+
+        </div>
+        <div class="w-1/4 mt-1 hidden sm:flex">
+            
+        </div>
+    </div>
+    <div class="footer py-2 bottom-0 w-full fixed">
+      <div class="container mx-auto text-center">
+        <p class="text-neutral-600 dark:text-neutral-300 mb-0">
+        独思
+        <a class="text-blue-600" target="_blank" href="https://github.com/AterDev/EasyBlog">Powered by Ater Blog</a>
+        </p>
+      </div>
+    </div>
+</body>
+</html>
