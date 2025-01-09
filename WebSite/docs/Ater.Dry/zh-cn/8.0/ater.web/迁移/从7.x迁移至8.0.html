@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>从7.x 迁移至8.0</title>
+    <meta name="description" content="@{Description}" />
+    <base href="/" />
+    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="stylesheet" href="/css/docs.css" />
+    <link rel="stylesheet" href="/css/markdown.css" />
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <script>const baseUrl = '/';</script>
+    <script src="/js/docs.js"></script>
+    <script src="/js/markdown.js"></script>
+    
+</head>
+
+<body class="dark:bg-neutral-900">
+  <div class="text-white py-2 bg-block">
+    <div class="container mx-auto flex items-center space-x-4">
+      <div class="flex-none">
+        <a href="/" class="text-2xl font-semibold hidden sm:block">独思</a>
+      </div>
+      <div class="flex-grow text-left flex space-x-4 items-center">
+         <a href="/blogs.html" class="block py-2 text text-lg">Blogs</a>
+<div class="relative dropdown">
+  <div>
+    <button type="button" class="flex items-center gap-x-1 text text-lg">
+      Docs
+      <svg class="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+        data-slot="icon">
+        <path fill-rule="evenodd"
+          d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+          clip-rule="evenodd" />
+      </svg>
+    </button>
+  </div>
+  <div class="absolute z-10 mt-2 w-56 origin-top-right rounded-md bg-card dropdown-content hidden" tabindex="-1">
+    <div class="py-1" role="none">
+      <a href="/docs/Ater.Dry\zh-cn\9.0\安装.html" class="block px-4 py-2 text">Ater.Dry</a>
+
+    </div>
+  </div>
+</div>
+<a href="/about.html" target="_blank" class="block py-2 text text-lg ">About</a>
+
+      </div>
+      <div class="flex-none flex items-center">
+        <div class="relative dropdown">
+    <div class="relative inline-block cursor-pointer">
+      <button type="button" class="flex items-center gap-x-1 text text-lg">
+        🌐
+      </button>
+    </div>
+    <div class="absolute right-0 mt-1 w-24 rounded-md bg-card dropdown-content hidden z-10 text-center">
+        <div id="languageSelect" class="py-1" role="none">
+        <a href="javascript:void(0);" onclick="doc.selectLanguage('zh-cn')" class="block px-3 py-1 text">zh-cn</a><a href="javascript:void(0);" onclick="doc.selectLanguage('en-us')" class="block px-3 py-1 text">en-us</a>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+    </div>
+
+    <div class="container mx-auto" style="margin-bottom: 48px;">
+      <div id="docData" data-id="d6698d2ab0a0cd3a6e6f905c721b38a7" class="hidden" data-docName="Ater.Dry" data-language="zh-cn" data-version="8.0"></div>
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-2 pt-2">
+        <div class="hidden md:block lg:col-span-1 sticky pe-4 top-0 h-fit">
+        <div>
+          <strong>Version</strong>
+        </div>
+        <select id="versionSelect" class="border border-gray-300 rounded-md p-1 my-2 bg-block w-full">
+
+<option value='8.0'>8.0</option>
+<option value='9.0'>9.0</option>
+</select>
+<div class="tree">
+<ul class="root-list">
+<li><span class="caret">ater.dry</span>
+<ul class="nested">
+<li id="88b84f4c72c822f7bbe7d7d8341df417" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.dry\概述.html">概述</a>
+</li>
+<li id="ddc7db874edec392b7f897be611a5687" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.dry\安装.html">安装</a>
+</li>
+<li id="5447e931e2a637c3716c7d42e5831170" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.dry\创建并运行项目.html">创建并运行项目</a>
+</li>
+<li><span class="caret">Studio</span>
+<ul class="nested">
+<li id="2435df446daeeb11b66323bd7d93d02f" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.dry\Studio\使用Dry Studio.html">使用Dry Studio</a>
+</li>
+<li id="9d2035706beb24b4c8d27b599cc1ecdf" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.dry\Studio\配置说明.html">配置说明</a>
+</li>
+<li id="74c8d7a0a9427667aa6e375f6c5365fc" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.dry\Studio\疑难问题.html">疑难问题</a>
+</li>
+<li id="3387804e7cb21791ed148c6cd496666a" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.dry\Studio\高级自定义功能.html">高级自定义功能</a>
+</li>
+</ul>
+<li><span class="caret">代码生成说明</span>
+<ul class="nested">
+<li id="17aa4b69e325cf265a5cb147484e528c" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.dry\代码生成说明\DTO生成.html">DTO生成</a>
+</li>
+<li id="ac8684eeec6f4de991bc2440e1bd2687" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.dry\代码生成说明\Manager生成.html">Manager生成</a>
+</li>
+</ul>
+<li><span class="caret">命令行</span>
+<ul class="nested">
+<li id="a27a698b44892f1785a905a9da4babb9" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.dry\命令行\Dto生成.html">Dto生成</a>
+</li>
+<li id="8761241a043518c33686b08c144a0796" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.dry\命令行\Manager生成.html">Manager生成</a>
+</li>
+<li id="28f4e723fafde6ab01e7423f6e14007a" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.dry\命令行\控制器接口生成.html">控制器接口生成</a>
+</li>
+<li id="ae0d05dd8d8de298adcb3040038a60c2" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.dry\命令行\前端请求服务生成.html">前端请求服务生成</a>
+</li>
+<li id="2584901811ed0290b9f82b2a83e4cbbb" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.dry\命令行\Studio.html">Studio</a>
+</li>
+<li id="4dbfea513e14d8ee06bed08c3357c852" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.dry\命令行\配置.html">配置</a>
+</li>
+</ul>
+</ul>
+<li><span class="caret">ater.web</span>
+<ul class="nested">
+<li id="78e00999d031a9578f8d1aec3bcfe740" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.web\概述.html">概述</a>
+</li>
+<li><span class="caret">教程</span>
+<ul class="nested">
+<li id="c98432e86fd50ca98cf824ee7f65a3c7" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.web\教程\项目结构说明.html">项目结构说明</a>
+</li>
+<li><span class="caret">分层项目说明</span>
+<ul class="nested">
+<li id="bdc01c94283767f904e72218eb04c3d3" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.web\教程\分层项目说明\Infrastructure.html">Infrastructure</a>
+</li>
+<li id="88ecd9c66db6bb2ffecae5908bbecb5f" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.web\教程\分层项目说明\Definition.html">Definition</a>
+</li>
+<li id="7c3554d8b99a341e6621c7a1682aec5e" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.web\教程\分层项目说明\Application.html">Application</a>
+</li>
+</ul>
+<li id="d4fe3e2ce41b93d818835e97cdf5a97c" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.web\教程\组织代码.html">组织代码</a>
+</li>
+</ul>
+<li id="c9b4f7db5ee0b547a237e5c2e36e7259" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.web\快速入门.html">快速入门</a>
+</li>
+<li><span class="caret">约定和规范</span>
+<ul class="nested">
+<li id="f1a5b050ff337e605d02a7bb2e7649c3" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.web\约定和规范\RESTful API.html">RESTful API</a>
+</li>
+<li id="eca831e760c17288b3d326c2dccf8354" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.web\约定和规范\实体定义.html">实体定义</a>
+</li>
+<li id="338f4b45ed70bbfa9f5a7d8a898774f6" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.web\约定和规范\第三方依赖.html">第三方依赖</a>
+</li>
+<li id="abec1ab893db8e917aaa2a61cdf783c3" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.web\约定和规范\约定.html">约定</a>
+</li>
+</ul>
+<li><span class="caret">功能模块</span>
+<ul class="nested">
+<li id="774b9ca01fb71dde93fefa33f0d3575e" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.web\功能模块\System模块.html">System模块</a>
+</li>
+</ul>
+<li><span class="caret">高级</span>
+<ul class="nested">
+<li id="39b71a3228fdab30d42a1611c0770458" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.web\高级\业务日志记录.html">业务日志记录</a>
+</li>
+</ul>
+<li id="f7b151e5ea61c8743a48f5f87ca13ffd" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.web\示例.html">示例</a>
+</li>
+<li id="8e339a072a6caa395c9752ed6206f09d" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.web\常见问题.html">常见问题</a>
+</li>
+<li><span class="caret">迁移</span>
+<ul class="nested">
+<li id="d6698d2ab0a0cd3a6e6f905c721b38a7" class="space">
+    <a class="text" href="/docs/Ater.Dry\zh-cn\8.0\ater.web\迁移\从7.x迁移至8.0.html">从7.x迁移至8.0</a>
+</li>
+</ul>
+</ul>
+<li><span class="caret">images</span>
+<ul class="nested">
+</ul>
+</ul>
+</div>
+
+        </div>
+        <div class="col-span-1 md:col-span-2 lg:col-span-2 markdown-content">
+        <h1 id="从7x-迁移至80">从7.x 迁移至8.0</h1>
+<p>从7.x版本迁移至8.0，目录结构发生了重大的变化，需要手动重构项目。</p>
+<p>本篇文章给出一个迁移说明，帮助大家迁移到8.0</p>
+<h2 id="准备">准备</h2>
+<p>拉取最新<code>ater.web</code>模板内容，<a href="https://github.com/AterDev/ater.web">GitHub地址</a>.</p>
+<p>其模板解决方案解决方案在<code>templates/apistd</code>目录中。</p>
+<p>我们将参照该最新的模板来将旧项目迁移到新项目。</p>
+<div class="markdown-alert markdown-alert-important">
+<p class="markdown-alert-title"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
+<p>请务必在新的分支上执行升级操作，并保持足够的耐心，重构可能需要数个小时。</p>
+<p>请使用VS或Rider等IDE来完成相关的重构相关的工作，以节省时间。</p>
+</div>
+<h2 id="升级到net80">升级到.NET8.0</h2>
+<p>将旧项目的.NET版本及相关依赖升级到8.0。</p>
+<h2 id="移除imanager接口层">移除IManager接口层</h2>
+<p>在7.2版本后，移除了IManager接口层，如果你使用之前的版本，需要先移除所有IxxxManager文件，并修复相关引用和命名空间。</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>可以使用VS中的查找和替换(正则替换)批量修改相关内容。</p>
+</div>
+<h2 id="重构到8x">重构到8.x</h2>
+<h3 id="1-复制-infrastructure">1 复制 Infrastructure</h3>
+<p>8.0版本将相关基础依赖封装到了<code>src/Infrastructure</code>目录，在新模板中，找到该文件夹，并复制到旧版本的<code>src</code>目录中。</p>
+<p>在解决方案中创建Infrastructure文件夹，并将其中的三个现有项目添加到解决方案中。</p>
+<h3 id="2-调整项目结构">2 调整项目结构</h3>
+<ol>
+<li>在<code>src</code>目录下创建目录<code>Definition</code>，同时创建解决方案目录。</li>
+<li>将原<code>Core</code>项目重命名为<code>Entity</code>，并移动到<code>Definition</code>目录中。</li>
+<li>将<code>Share</code>以及<code>Database</code>下的<code>EntityFramework</code>项目移动到<code>Definition</code>目录中。</li>
+<li>调整.sln文件中的目录的目录路径，如:</li>
+</ol>
+<div class="markdown-alert markdown-alert-important">
+<p class="markdown-alert-title"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
+<p>以上移动包括本地文件目录的移动，以及解决方案的移动，以保持解决方案结构跟文件结构一致。</p>
+</div>
+<div class="language-ini"><pre>
+Project(&quot;{9A19103F-16F7-4668-BE54-9A1E7A4F7556}&quot;) = &quot;Entity&quot;, &quot;src\Definition\Entity\Entity.csproj&quot;, &quot;{98B3C835-3D2B-4BA8-A197-6EA842A75C31}&quot;
+EndProject
+Project(&quot;{9A19103F-16F7-4668-BE54-9A1E7A4F7556}&quot;) = &quot;EntityFramework&quot;, &quot;src\Definition\EntityFramework\EntityFramework.csproj&quot;, &quot;{9BDFBC64-469E-4CE6-B1AB-36C8E5E2E4E4}&quot;
+EndProject
+Project(&quot;{9A19103F-16F7-4668-BE54-9A1E7A4F7556}&quot;) = &quot;Share&quot;, &quot;src\Definition\Share\Share.csproj&quot;, &quot;{5D8DD758-141F-452D-A69C-B2652C1ABF91}&quot;
+EndProject
+</pre></div>
+<div class="markdown-alert markdown-alert-important">
+<p class="markdown-alert-title"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
+<p>项目重命名时，同时要将系统文件目录下的名称也修改。</p>
+</div>
+<h3 id="3-修复项目引用">3 修复项目引用</h3>
+<p>文件目录修改后，重新打开解决方案项目，然后修复项目引用的路径。可以先删除原项目引用 ，然后再手动添加新项目引用。主要包括：</p>
+<p>对于<code>Http.API</code>项目:</p>
+<div class="language-xml"><pre>
+<span class="xmlDelimiter">&lt;</span><span class="xmlName">ItemGroup</span><span class="xmlDelimiter">&gt;</span>
+    <span class="xmlDelimiter">&lt;</span><span class="xmlName">ProjectReference</span> <span class="xmlAttribute">Include</span><span class="xmlDelimiter">=</span><span class="xmlAttributeQuotes">&quot;</span><span class="xmlAttributeValue">..\Application\Application.csproj</span><span class="xmlAttributeQuotes">&quot;</span> <span class="xmlDelimiter">/&gt;</span>
+    <span class="xmlDelimiter">&lt;</span><span class="xmlName">ProjectReference</span> <span class="xmlAttribute">Include</span><span class="xmlDelimiter">=</span><span class="xmlAttributeQuotes">&quot;</span><span class="xmlAttributeValue">..\Infrastructure\Ater.Web.Extension\Ater.Web.Extension.csproj</span><span class="xmlAttributeQuotes">&quot;</span> <span class="xmlDelimiter">/&gt;</span>
+<span class="xmlDelimiter">&lt;/</span><span class="xmlName">ItemGroup</span><span class="xmlDelimiter">&gt;</span>
+</pre></div>
+<p>对于<code>Application</code>项目:</p>
+<div class="language-xml"><pre>
+<span class="xmlDelimiter">&lt;</span><span class="xmlName">ItemGroup</span><span class="xmlDelimiter">&gt;</span>
+    <span class="xmlDelimiter">&lt;</span><span class="xmlName">ProjectReference</span> <span class="xmlAttribute">Include</span><span class="xmlDelimiter">=</span><span class="xmlAttributeQuotes">&quot;</span><span class="xmlAttributeValue">..\Definition\EntityFramework\EntityFramework.csproj</span><span class="xmlAttributeQuotes">&quot;</span> <span class="xmlDelimiter">/&gt;</span>
+    <span class="xmlDelimiter">&lt;</span><span class="xmlName">ProjectReference</span> <span class="xmlAttribute">Include</span><span class="xmlDelimiter">=</span><span class="xmlAttributeQuotes">&quot;</span><span class="xmlAttributeValue">..\Definition\Share\Share.csproj</span><span class="xmlAttributeQuotes">&quot;</span> <span class="xmlDelimiter">/&gt;</span>
+<span class="xmlDelimiter">&lt;/</span><span class="xmlName">ItemGroup</span><span class="xmlDelimiter">&gt;</span>
+</pre></div>
+<p>对于<code>Share</code>项目:</p>
+<div class="language-xml"><pre>
+<span class="xmlDelimiter">&lt;</span><span class="xmlName">ItemGroup</span><span class="xmlDelimiter">&gt;</span>
+    <span class="xmlDelimiter">&lt;</span><span class="xmlName">ProjectReference</span> <span class="xmlAttribute">Include</span><span class="xmlDelimiter">=</span><span class="xmlAttributeQuotes">&quot;</span><span class="xmlAttributeValue">..\Entity\Entity.csproj</span><span class="xmlAttributeQuotes">&quot;</span> <span class="xmlDelimiter">/&gt;</span>
+<span class="xmlDelimiter">&lt;/</span><span class="xmlName">ItemGroup</span><span class="xmlDelimiter">&gt;</span>
+</pre></div>
+<p>对于<code>Entityframework</code>项目:</p>
+<div class="language-xml"><pre>
+<span class="xmlDelimiter">&lt;</span><span class="xmlName">ItemGroup</span><span class="xmlDelimiter">&gt;</span>
+    <span class="xmlDelimiter">&lt;</span><span class="xmlName">ProjectReference</span> <span class="xmlAttribute">Include</span><span class="xmlDelimiter">=</span><span class="xmlAttributeQuotes">&quot;</span><span class="xmlAttributeValue">..\Entity\Entity.csproj</span><span class="xmlAttributeQuotes">&quot;</span> <span class="xmlDelimiter">/&gt;</span>
+    <span class="xmlDelimiter">&lt;</span><span class="xmlName">ProjectReference</span> <span class="xmlAttribute">Include</span><span class="xmlDelimiter">=</span><span class="xmlAttributeQuotes">&quot;</span><span class="xmlAttributeValue">..\..\Infrastructure\Ater.Web.Abstraction\Ater.Web.Abstraction.csproj</span><span class="xmlAttributeQuotes">&quot;</span> <span class="xmlDelimiter">/&gt;</span>
+<span class="xmlDelimiter">&lt;/</span><span class="xmlName">ItemGroup</span><span class="xmlDelimiter">&gt;</span>
+</pre></div>
+<p>对于<code>Entity</code>项目:</p>
+<div class="language-xml"><pre>
+<span class="xmlDelimiter">&lt;</span><span class="xmlName">ItemGroup</span><span class="xmlDelimiter">&gt;</span>
+    <span class="xmlDelimiter">&lt;</span><span class="xmlName">ProjectReference</span> <span class="xmlAttribute">Include</span><span class="xmlDelimiter">=</span><span class="xmlAttributeQuotes">&quot;</span><span class="xmlAttributeValue">..\..\Infrastructure\Ater.Web.Core\Ater.Web.Core.csproj</span><span class="xmlAttributeQuotes">&quot;</span> <span class="xmlDelimiter">/&gt;</span>
+<span class="xmlDelimiter">&lt;/</span><span class="xmlName">ItemGroup</span><span class="xmlDelimiter">&gt;</span>
+</pre></div>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>可以参照新模板中的引用关系。</p>
+</div>
+<p>接下来，我们会对每个项目进行迁移和错误修复。</p>
+<h3 id="修复entity项目">修复Entity项目</h3>
+<p>该项目对应原来的<code>Core</code>项目。该项目应该只保留与实体相关的内容。</p>
+<ol>
+<li><p>删除<code>Const</code>,<code>Models</code>,<code>Utils</code>目录(如果有)，<strong>如果有你自定义的代码，需要保留</strong>。</p>
+</li>
+<li><p>将所有实体从<code>Entities</code>目录移动到根目录(子目录仍然保留)，只是去除了该层目录。</p>
+</li>
+<li><p>修改实体继承</p>
+<p>8.x版本中的所有实体不再继承<code>EntityBase</code>，而修改成<code>IEntityBase</code>。
+做出该项修改是因为<code>EF Core 8.0</code>对 <strong><code>Json列</code></strong> 的支持并不支持<code>TPC</code>继承关系，所以我们不再使用继承。</p>
+<p>你可以使用VS中的查看和替换功能，查找范围设定为该项目，将所有<code>: EntityBase</code>替换成<code>: IEntityBase</code>。</p>
+</li>
+<li><p>修改<code>GlobalUsings.cs</code>为以下内容：</p>
+<div class="language-csharp"><pre>
+global <span class="keyword">using</span> System.<span class="className">ComponentModel</span>.<span class="variable">DataAnnotations</span>;
+global <span class="keyword">using</span> System.ComponentModel.<span class="className">DataAnnotations</span>.<span class="variable">Schema</span>;
+global <span class="keyword">using</span> Ater.Web.<span class="className">Core</span>.<span class="variable">Models</span>;
+global <span class="keyword">using</span> <span class="className">Microsoft</span>.<span class="variable">EntityFrameworkCore</span>;
+</pre></div>
+<p>以及添加你需要的命名空间。</p>
+</li>
+<li><p>现在已经继承了<code>IEntityBase</code>，那么需要实现其中的属性，在VS中打开一个实体文件，右键接口名称，选择快速重构，实现接口内容并应用到整个项目，这样你不需要手动修改每个实体文件。</p>
+</li>
+<li><p>修复命名空间引用错误，建议使用VS中的代码清理功能。</p>
+<p>右键项目，选择代码分析和清理，如果你没配置过，请先配置代码清理。配置完成后选择其中的一个配置用于代码清理。</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>配置并使用代码清理功能，可以避免手动对每个文件中的错误进行修复。它可以帮助你移除错误的命名空间引用，请使用工具。</p>
+</div>
+</li>
+<li><p>重新Build<code>Entity</code>项目，继续修复其他问题，直到构建成功。</p>
+</li>
+</ol>
+<h3 id="修复share项目">修复Share项目</h3>
+<ol>
+<li><p>删除<code>Models</code>中的</p>
+<ul>
+<li>PageList.cs</li>
+<li>FilterBase.cs</li>
+</ul>
+<p>该类已经在<code>Ater.Web.Core</code>中定义。</p>
+</li>
+<li><p>将新模板中的<code>Options</code>目录复制到当前项目中。</p>
+</li>
+<li><p>使用代码清理功能，并处理命名空间引用相关错误。</p>
+</li>
+<li><p>然后Build项目，处理其他业务依赖问题，直到build成功。</p>
+</li>
+</ol>
+<h3 id="修复entityframework">修复EntityFramework</h3>
+<ol>
+<li><p>在VS中创建新解决方案目录<code>DBProvider</code>，将<code>CommandDbContext.cs</code>,<code>QueryDbContext.cs</code>和<code>ContextBase.cs</code>移动到该目录下。</p>
+</li>
+<li><p>将新模板中的<code>CommandDbContextFactory.cs</code>和<code>QueryDbContextFactory.cs</code>文件也复制到当前项目。</p>
+</li>
+<li><p>然后修改<code>ContextBase.cs</code>中的代码。</p>
+<p>删除<code>OnModelCreating</code>方法中的</p>
+<div class="language-csharp"><pre>
+<span class="variable">builder</span>.<span class="className">Entity</span>&lt;<span class="symbol">EntityBase</span>&gt;<span class="controlKeyword">(</span><span class="controlKeyword">)</span>.<span class="function">UseTpcMappingStrategy</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span>;
+</pre></div>
+<p>然后将新模板中<code>ContextBase.cs</code>的 <code>SaveChangesAsync</code>,<code>OnModelExtendCreating</code>,<code>OnSqliteModelCreating</code>和<code>ConvertFilterExpression</code>方法复制过来。</p>
+<p>并在<code>OnModelCreating</code>方法中调用<code>OnModelExtendCreating</code>方法，如:</p>
+<div class="language-csharp"><pre>
+<span class="variable">base</span>.<span class="function">OnModelCreating</span><span class="controlKeyword">(</span>builder<span class="controlKeyword">)</span>;
+ <span class="function">OnModelExtendCreating</span><span class="controlKeyword">(</span>builder<span class="controlKeyword">)</span>;
+</pre></div>
+</li>
+<li><p>移除<code>QueryDbContext.cs</code>中的全局筛选<code>builder.Entity&lt;EntityBase&gt;().HasQueryFilter(e =&gt; !e.IsDeleted);</code></p>
+</li>
+<li><p>将模板中的<code>DataAccessContext.cs</code>复制到当前项目。</p>
+</li>
+<li><p>修改<code>GlobalUsings.cs</code>内容，如下:</p>
+<div class="language-csharp"><pre>
+global <span class="keyword">using</span> System.<span class="className">Linq</span>.<span class="variable">Expressions</span>;
+global <span class="keyword">using</span> Ater.Web.<span class="className">Abstraction</span>.<span class="variable">Interface</span>;
+global <span class="keyword">using</span> Ater.Web.<span class="className">Core</span>.<span class="variable">Models</span>;
+global <span class="keyword">using</span> Entity;
+global <span class="keyword">using</span> <span class="className">Microsoft</span>.<span class="variable">EntityFrameworkCore</span>;
+</pre></div>
+</li>
+<li><p>使用代码清理功能，并处理命名空间引用相关错误。</p>
+</li>
+<li><p>然后Build项目，处理其他业务依赖问题，直到build成功。</p>
+</li>
+</ol>
+<h3 id="修复application">修复Application</h3>
+<h4 id="移除无用代码">移除无用代码</h4>
+<p>8.x移除了DataStore层，大大减少了生成的代码。</p>
+<ol>
+<li><p>删除<code>CommandStore</code>和<code>QueryStore</code>目录。</p>
+</li>
+<li><p>删除<code>Interface</code>中文件，包括:</p>
+<ul>
+<li>ICommandStore.cs</li>
+<li>ICommandStoreExt.cs</li>
+<li>IDataStore.cs</li>
+<li>IDomainManager.cs</li>
+<li>IQueryStore.cs</li>
+<li>IQueryStoreExt.cs`。</li>
+</ul>
+</li>
+<li><p>删除<code>Implement</code>中文件，包括：</p>
+<ul>
+<li>CommandStoreBase.cs</li>
+<li>DataStoreContext.cs</li>
+<li>DataStoreBase.cs</li>
+<li>DomainManagerBase.cs</li>
+<li>QueryStoreBase.cs</li>
+<li>StoreServicesExtensions.cs，在删除之前，复制<code>AddManager</code>中的Manager注入的代码。</li>
+</ul>
+</li>
+<li><p>移除<code>JwtService.cs</code>。该类已在基础设计中实现，修改了<code>GetToken</code>方法的参数。</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>修改时可参照新模板中的目录结构进行调整。</p>
+</div>
+</li>
+</ol>
+<h4 id="修改代码">修改代码</h4>
+<ol>
+<li><p>将新模板中的<code>AppServiceCollectionExtensions.cs</code>和<code>ManagerServiceCollectionExtensions.cs</code>复制到当前项目根目录下，并将之前从<code>StoreServicesExtensions.cs</code>复制的Manager注入代码，复制到该类中的<code>AddManager</code>方法。</p>
+</li>
+<li><p>将<code>IUserContext</code>接口继承<code>IUserContextBase</code>，然后删除已存在的属性，并将该文件移动到根目录中，并参照新模板补充该接口方法；</p>
+</li>
+<li><p>复制新模板中的<code>Implement\ManagerBase.cs</code>文件到当前项目中的<code>Implement</code>目录中；</p>
+</li>
+<li><p>参考新模板中的<code>UserContext.cs</code>来完善当前的<code>UserContext.cs</code>，比如对IsAdmin的判断。</p>
+</li>
+<li><p>将新模板中的<code>Const</code>目录复制到当前项目；</p>
+</li>
+<li><p>将新模板中的<code>Service</code>目录复制到当前项目；</p>
+</li>
+<li><p>修改<code>GlobalUsings.cs</code>，示例如下:</p>
+<div class="language-csharp"><pre>
+global <span class="keyword">using</span> System.<span class="className">Linq</span>.<span class="variable">Expressions</span>;
+global <span class="keyword">using</span> System.<span class="className">Security</span>.<span class="variable">Claims</span>;
+global <span class="keyword">using</span> <span class="className">Application</span>.<span class="variable">Implement</span>;
+global <span class="keyword">using</span> <span class="className">Application</span>.<span class="variable">Manager</span>;
+global <span class="keyword">using</span> Ater.<span class="className">Web</span>.<span class="variable">Abstraction</span>;
+global <span class="keyword">using</span> Ater.Web.<span class="className">Abstraction</span>.<span class="variable">Interface</span>;
+global <span class="keyword">using</span> Ater.Web.<span class="className">Core</span>.<span class="variable">Models</span>;
+global <span class="keyword">using</span> Ater.Web.<span class="className">Core</span>.<span class="variable">Utils</span>;
+global <span class="keyword">using</span> Entity;
+global <span class="keyword">using</span> EntityFramework;
+global <span class="keyword">using</span> <span class="className">Microsoft</span>.<span class="variable">EntityFrameworkCore</span>;
+global <span class="keyword">using</span> Microsoft.<span class="className">Extensions</span>.<span class="variable">DependencyInjection</span>;
+global <span class="keyword">using</span> Microsoft.<span class="className">Extensions</span>.<span class="variable">Logging</span>;
+</pre></div>
+</li>
+<li><p>处理Manager继承。
+Manager是编写业务逻辑的重要载体，8.x去除了DataStore相关概念和代码，需要对所有的Manager进行重构，即我们需要将</p>
+<div class="language-csharp"><pre>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="className">ResourceManager</span> : DomainManagerBase&lt;Resource, ResourceUpdateDto, ResourceFilterDto, ResourceItemDto&gt;
+<span class="controlKeyword">{</span>
+    <span class="keyword">private</span> <span class="keyword">readonly</span> ResourceTypeDefinitionManager typeDefinitionManager;
+    <span class="keyword">private</span> <span class="keyword">readonly</span> ResourceTagsManager tagsManager;
+    <span class="keyword">private</span> <span class="keyword">readonly</span> ResourceGroupManager resourceGroupManager;
+    <span class="keyword">public</span> <span class="function">ResourceManager</span><span class="controlKeyword">(</span>DataStoreContext storeContext,
+                           ResourceTypeDefinitionManager typeDefinitionManager,
+                           ResourceTagsManager tagsManager,
+                           ResourceGroupManager resourceGroupManager<span class="controlKeyword">)</span> : <span class="keyword">base</span><span class="controlKeyword">(</span>storeContext<span class="controlKeyword">)</span>
+    <span class="controlKeyword">{</span>
+        <span class="variable">this</span>.typeDefinitionManager = typeDefinitionManager;
+        <span class="variable">this</span>.tagsManager = tagsManager;
+        <span class="variable">this</span>.resourceGroupManager = resourceGroupManager;
+    <span class="controlKeyword">}</span>
+    <span class="comment">// ...</span>
+<span class="controlKeyword">}</span>
+</pre></div>
+<p>修改成以下形式:</p>
+<div class="language-csharp"><pre>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="className">ResourceManager</span> : ManagerBase&lt;Resource, ResourceUpdateDto, ResourceFilterDto, ResourceItemDto&gt;
+<span class="controlKeyword">{</span>
+    <span class="keyword">private</span> <span class="keyword">readonly</span> ResourceTypeDefinitionManager typeDefinitionManager;
+    <span class="keyword">private</span> <span class="keyword">readonly</span> ResourceTagsManager tagsManager;
+    <span class="keyword">private</span> <span class="keyword">readonly</span> ResourceGroupManager resourceGroupManager;
+    <span class="keyword">public</span> <span class="function">ResourceManager</span><span class="controlKeyword">(</span><span class="className">DataAccessContext</span>&lt;<span class="symbol">Resource</span>&gt; storeContext,
+                           ILogger &lt;ResourceManager&gt; logger,
+                           ResourceTypeDefinitionManager typeDefinitionManager,
+                           ResourceTagsManager tagsManager,
+                           ResourceGroupManager resourceGroupManager<span class="controlKeyword">)</span> : <span class="keyword">base</span><span class="controlKeyword">(</span>storeContext,logger<span class="controlKeyword">)</span>
+    <span class="controlKeyword">{</span>
+        <span class="variable">this</span>.typeDefinitionManager = typeDefinitionManager;
+        <span class="variable">this</span>.tagsManager = tagsManager;
+        <span class="variable">this</span>.resourceGroupManager = resourceGroupManager;
+    <span class="controlKeyword">}</span>
+    <span class="comment">// ....</span>
+<span class="controlKeyword">}</span>
+</pre></div>
+<p>可以按照以下步骤修改：</p>
+<ol>
+<li>继承的基类，将<code>DomainManagerBase</code>修改成<code>ManagerBase</code>. 可使用搜索批量替换该项目下的内容，如搜索<code>: DomainManagerBase&lt;</code>，替换成<code>: ManagerBase&lt;</code></li>
+<li>构造方法中，我们要将参数<code>DataStoreContext</code>修改成带泛型的<code>DataAccessContext&lt;xxx&gt;</code>，我们可以通过正则匹配来替换相关的内容。我们将搜索正则表达式<code>\b(\w+)Manager\(DataStoreContext storeContext</code>，替换成<code>$1Manager(DataAccessContext&lt;$1&gt; storeContext, ILogger&lt;$1Manager&gt; logger</code>；然后搜索<code>: base(storeContext)</code>替换成<code>: base(storeContext, logger)</code></li>
+</ol>
+<div class="markdown-alert markdown-alert-warning">
+<p class="markdown-alert-title"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p>请尽可能使用逐个替换，以避免替换错误的匹配内容。</p>
+</div>
+</li>
+<li><p>如果你你在Manager使用了之前基类中的变量来访问数据库，你可能需要进行替换，如：</p>
+<ol>
+<li><code>Stores.QueryContext.</code>=&gt;<code>QueryContext.</code></li>
+<li><code>Stores.CommandContext.</code>=&gt;<code>CommandContext.</code></li>
+<li><code>Query.Context.</code>=&gt;<code>QueryContext.</code></li>
+<li><code>Command.Context.</code>=&gt;<code>CommandContext.</code></li>
+</ol>
+<p>也就是说要访问DbContext，不再需要Stores,可以直接在Manager访问。请按照该方式修改其他通过Stores操作数据的方法。</p>
+</li>
+<li><p>其他需要修改的内容，如:</p>
+<ol>
+<li>移除了<code>GetCurrent</code>方法，统一使用<code>GetCurrentAsync</code>.</li>
+<li><code>ErrorMessage</code>变量名称修改成<code>ErrorMsg</code>.</li>
+</ol>
+</li>
+<li><p>使用代码清理功能，并处理命名空间引用相关错误。</p>
+</li>
+<li><p>将新模板项目中的包引用添加到当前项目中。</p>
+</li>
+<li><p>Build项目，并修复其他业务代码错误，直接构建成功。</p>
+</li>
+</ol>
+<div class="markdown-alert markdown-alert-important">
+<p class="markdown-alert-title"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
+<p>8.0开始引入了模块概念，并且模板自带SystemMod模块，如果你不使用该模块，当遇到<code>SystemUser</code>等引起的错误，可将相关功能代码删除或注释即可。</p>
+</div>
+<h3 id="修复httpapi">修复Http.API</h3>
+<ol>
+<li><p>移除基础类，包括：</p>
+<ul>
+<li>IRestController.cs</li>
+<li>RestControllerBase.cs</li>
+<li>IRestApiBase.cs</li>
+<li>JwtMiddleware.cs</li>
+<li>RestApiBase.cs</li>
+</ul>
+<p>以上内容不再需要或在Ater.Web项目中实现。</p>
+</li>
+<li><p>将新模板中的<code>Worker</code>复制到当前项目中。其中<code>InitDataTask.cs</code>请以当前项目为准，旧项目该文件可能在<code>Application</code>项目中，请将该文件移动到<code>Http.API</code>项目；</p>
+<p>将新模板中的<code>ServiceCollectionExtension.cs</code>复制到当前项目根目录。</p>
+</li>
+<li><p>修改Controller的继承。
+8.0简化了Controller，不再需要继承接口。模板提供了两个基类，分别用于后台管理权限(<code>RestControllerBase</code>)和用户端权限(<code>ClientControllerBase</code>)。</p>
+<p>通常后台管理的控制器会保存在<code>Controllers\AdminControllers</code>目录中。</p>
+<p>我们需要将原</p>
+<div class="language-csharp"><pre>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="className">ResourceGroupController</span> : <span class="className">RestControllerBase</span>&lt;<span class="symbol">ResourceGroupManager</span>&gt;, IRestController&lt;ResourceGroup, ResourceGroupAddDto, ResourceGroupUpdateDto, ResourceGroupFilterDto, ResourceGroupItemDto&gt;
+<span class="controlKeyword">{</span>
+<span class="controlKeyword">}</span>
+</pre></div>
+<p>修改成以下形式:</p>
+<div class="language-csharp"><pre>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="className">ResourceGroupController</span> : <span class="className">ClientControllerBase</span>&lt;<span class="symbol">ResourceGroupManager</span>&gt;
+<span class="controlKeyword">{</span>
+<span class="controlKeyword">}</span>
+</pre></div>
+<ol>
+<li>移除接口，可以使用正则匹配替换来移除接口，搜索<code>\bIRestController&lt;.+&gt;</code>,替换为空字符串。</li>
+<li>修改继承的基类，使用正则匹配替换，搜索<code>RestControllerBase&lt;([\w]+)Manager&gt;,</code>，替换成<code>ClientControllerBase&lt;$1Manager&gt;</code>。</li>
+</ol>
+</li>
+<li><p><code>GlobalUsings.cs</code>内容如下:</p>
+<div class="language-csharp"><pre>
+global <span class="keyword">using</span> <span class="className">System</span>.<span class="variable">Text</span>;
+ global <span class="keyword">using</span> System.Text.<span class="className">Json</span>.<span class="variable">Serialization</span>;
+ global <span class="keyword">using</span> Application;
+ global <span class="keyword">using</span> <span class="className">Application</span>.<span class="variable">Const</span>;
+ global <span class="keyword">using</span> <span class="className">Application</span>.<span class="variable">Implement</span>;
+ global <span class="keyword">using</span> <span class="className">Application</span>.<span class="variable">Manager</span>;
+ global <span class="keyword">using</span> <span class="className">Application</span>.<span class="variable">Services</span>;
+ global <span class="keyword">using</span> Ater.<span class="className">Web</span>.<span class="variable">Abstraction</span>;
+ global <span class="keyword">using</span> Ater.Web.<span class="className">Abstraction</span>.<span class="variable">Interface</span>;
+ global <span class="keyword">using</span> Ater.Web.<span class="className">Core</span>.<span class="variable">Models</span>;
+ global <span class="keyword">using</span> Ater.Web.<span class="className">Core</span>.<span class="variable">Utils</span>;
+ global <span class="keyword">using</span> Ater.Web.<span class="className">Extension</span>.<span class="variable">Services</span>;
+ global <span class="keyword">using</span> Entity;
+ global <span class="keyword">using</span> Http.<span class="className">API</span>.<span class="variable">Middleware</span>;
+ global <span class="keyword">using</span> Microsoft.<span class="className">AspNetCore</span>.<span class="variable">Authorization</span>;
+ global <span class="keyword">using</span> Microsoft.<span class="className">AspNetCore</span>.<span class="variable">Mvc</span>;
+ global <span class="keyword">using</span> <span class="className">Microsoft</span>.<span class="variable">EntityFrameworkCore</span>;
+ global <span class="keyword">using</span> Microsoft.<span class="className">Extensions</span>.<span class="variable">DependencyInjection</span>;
+ global <span class="keyword">using</span> <span class="className">Share</span>.<span class="variable">Options</span>;
+</pre></div>
+</li>
+<li><p>使用代码清理功能，并处理命名空间引用相关的错误。</p>
+</li>
+<li><p>修改<code>Program.cs</code>.
+新模板对Program进行了简化，将大部分的服务注册和使用统一放到了<code>ServiceCollectionExtension.cs</code>文件中。
+典型的<code>Program.cs</code>内容如下:</p>
+<div class="language-csharp"><pre>
+WebApplicationBuilder builder = <span class="className">WebApplication</span>.<span class="function">CreateBuilder</span><span class="controlKeyword">(</span>args<span class="controlKeyword">)</span>;    
+<span class="comment">// 1 添加默认组件</span>
+<span class="variable">builder</span>.<span class="function">AddDefaultComponents</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span>;
+<span class="comment">// 2 注册和配置Web服务依赖</span>
+<span class="variable">builder</span>.<span class="function">AddDefaultWebServices</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span>;
+<span class="comment">// 3 其他自定义选项及服务</span>
+<span class="variable">builder</span>.Services.AddSingleton&lt;IEmailService, <span class="function">EmailService</span>&gt;<span class="controlKeyword">(</span><span class="controlKeyword">)</span>;
+WebApplication app = <span class="variable">builder</span>.<span class="function">Build</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span>;
+<span class="comment">// 使用中间件</span>
+<span class="variable">app</span>.<span class="function">UseDefaultWebServices</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span>;
+<span class="keyword">using</span> <span class="controlKeyword">(</span>app<span class="controlKeyword">)</span>
+<span class="controlKeyword">{</span>
+    <span class="comment">// 初始化工作</span>
+    <span class="keyword">await</span> <span class="keyword">using</span> <span class="controlKeyword">(</span>AsyncServiceScope scope = <span class="variable">app</span>.<span class="className">Services</span>.<span class="function">CreateAsyncScope</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span><span class="controlKeyword">)</span>
+    <span class="controlKeyword">{</span>
+        <span class="className">IServiceProvider</span> <span class="variable">provider</span> = <span class="variable">scope</span>.ServiceProvider;
+        <span class="keyword">await</span> <span class="className">InitDataTask</span>.<span class="function">InitDataAsync</span><span class="controlKeyword">(</span>provider<span class="controlKeyword">)</span>;
+    <span class="controlKeyword">}</span>
+    <span class="variable">app</span>.<span class="function">Run</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span>;
+<span class="controlKeyword">}</span>
+<span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="className">Program</span> <span class="controlKeyword">{</span> <span class="controlKeyword">}</span>
+</pre></div>
+<p>请将<code>Program.cs</code>中的内容都迁移到<code>ServiceCollectionExtension</code>类，该类中以下内容，如果不需要可以注释或删除</p>
+<div class="language-csharp"><pre>
+<span class="variable">builder</span>.Services.AddSingleton&lt;<span class="className">IEntityTaskQueue</span>&lt;<span class="symbol">UserLogs</span>&gt;, <span class="function">EntityTaskQueue</span>&lt;UserLogs&gt;&gt;<span class="controlKeyword">(</span><span class="controlKeyword">)</span>;
+<span class="comment">// 添加后台系统模块服务</span>
+<span class="variable">builder</span>.<span class="className">Services</span>.<span class="function">AddSystemModServices</span><span class="controlKeyword">(</span><span class="controlKeyword">)</span>;
+</pre></div>
+</li>
+<li><p>将新模板项目中的包引用添加到当前项目中。</p>
+</li>
+<li><p>Build项目，并修复其他业务代码错误，直到Build成功。</p>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>新模板中的<code>UserContext</code>中的<code>UserId</code>不再是可为空的，如果你有使用类似于<code>_user.UserId.Value</code>的地方，需要修改成<code>_user.UserId</code>.</p>
+</div>
+</li>
+</ol>
+<h3 id="更新appsettingsjson">更新appsettings.json</h3>
+<p>移除当前项目中的<code>Jwt</code>和<code>ConnectionStrings</code>配置项。</p>
+<p>将新模板中的<code>appsettings.json</code>内容复制到当前项目中，请注意，自定义的业务配置项要保留。</p>
+<p>同时修改<code>appsettings.Development.json</code>和<code>appsettings.Production.json</code>中的内容。</p>
+<div class="markdown-alert markdown-alert-important">
+<p class="markdown-alert-title"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
+<p>Jwt配置选项结构已经修改，所以你需要同步修改代码中获取Jwt配置的代码。</p>
+</div>
+<h3 id="运行并测试">运行并测试</h3>
+<p>经过上面的步骤后，程序已经可以构建成功，但仍然需要使用最新的配置运行程序。接下来需要对接口进行人工测试，以评估升级后是否存在问题。</p>
+<h2 id="疑难问题">疑难问题</h2>
+<p>8.0开始将swagger进行了分组，分别为<code>client</code>和<code>admin</code>分别对应用户端接口和管理端接口。</p>
+<p>如果开启了拆分控制器，在生成Controller的时候，会分别生成用户端控制器和管理端控制器。</p>
+
+        </div>
+        <div class="hidden lg:block lg:col-span-1">
+        <div class="toc-block sticky top-2">
+ <p class="text-lg">导航</p>
+<ul class="toc">
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#准备'">准备</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#升级到.net8.0'">升级到.NET8.0</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#移除imanager接口层'">移除IManager接口层</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#重构到8.x'">重构到8.x</a>
+</li>
+</ul>
+</div>
+
+        </div>
+      </div>
+    </div>
+    <div class="footer py-2 bottom-0 w-full fixed">
+    <div class="container mx-auto text-center">
+        <p class="text-neutral-600 dark:text-neutral-300 mb-0">
+        独思
+        <a class="text-blue-600" target="_blank" href="https://github.com/AterDev/EasyBlog">Powered by Ater Blog</a>
+        </p>
+    </div>
+  </div>
+</body>
+</html>
