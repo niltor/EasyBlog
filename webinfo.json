@@ -4,6 +4,7 @@
   "AuthorName": "NilTor",
   "BaseHref": "/",
   "ContentPath": "./Content",
+  "OutputPath": "./Output",
   "Domain": "https://dusi.dev",
   "DocInfos": [
     {
