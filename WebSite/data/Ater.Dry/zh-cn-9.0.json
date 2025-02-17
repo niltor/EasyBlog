@@ -190,6 +190,16 @@
           "Catalog": null
         },
         {
+          "Title": "核心概念",
+          "HtmlPath": "Ater.Dry\\教程\\核心概念.html",
+          "Path": "./Content\\docs\\Ater.Dry\\zh-cn\\9.0\\教程\\核心概念.md",
+          "FileName": "核心概念.md",
+          "PublishTime": "2025-01-23T18:10:13+08:00",
+          "CreatedTime": "2025-01-23T18:10:13+08:00",
+          "UpdatedTime": "2025-01-23T18:10:13+08:00",
+          "Catalog": null
+        },
+        {
           "Title": "生成基础代码",
           "HtmlPath": "Ater.Dry\\教程\\生成基础代码.html",
           "Path": "./Content\\docs\\Ater.Dry\\zh-cn\\9.0\\教程\\生成基础代码.md",

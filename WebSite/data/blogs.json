@@ -16,6 +16,16 @@
           "CreatedTime": "2025-01-06T18:56:27+08:00",
           "UpdatedTime": "2025-01-06T18:56:27+08:00",
           "Catalog": null
+        },
+        {
+          "Title": "借助.Net Aspire快速运行大语言模型",
+          "HtmlPath": ".NET\\借助.Net Aspire快速运行大语言模型.html",
+          "Path": "./Content\\blogs\\.NET\\借助.Net Aspire快速运行大语言模型.md",
+          "FileName": "借助.Net Aspire快速运行大语言模型.md",
+          "PublishTime": "2025-02-17T12:16:35+08:00",
+          "CreatedTime": "2025-02-17T12:16:35+08:00",
+          "UpdatedTime": "2025-02-17T12:16:35+08:00",
+          "Catalog": null
         }
       ],
       "Parent": null
