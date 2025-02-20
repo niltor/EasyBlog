@@ -30,15 +30,15 @@ dry studio 为开发者提供了Web UI 来管理和生成代码，相比使用�
 
 查看实体模型，并根据实体模型生成相应的代码:
 
-![entities](../../images/code%20generate.png)
+![entities](../../_images/code%20generate.png)
 
 选择要生成的内容
 
-![generate-actons](../../images/generate%20actions.png)
+![generate-actons](../../_images/generate%20actions.png)
 
 在线编辑dto
 
-![edit dtos](../../images/edit%20dtos.png)
+![edit dtos](../../_images/edit%20dtos.png)
 
 ### 前端代码生成
 
@@ -50,4 +50,4 @@ dry studio 为开发者提供了Web UI 来管理和生成代码，相比使用�
 - 文档加载成功后，点击右上角`js`图标，弹出生成弹窗
 - 填写相应的参数，然后点击生成
 
-![front-end](../../images/front-end.png)
+![front-end](../../_images/front-end.png)

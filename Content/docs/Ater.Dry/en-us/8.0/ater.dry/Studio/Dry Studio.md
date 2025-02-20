@@ -30,15 +30,15 @@ After you add the solution as a project, select the project on the homepage, cli
 
 View the solid model and generate code based on it:
 
-![entities](../../images/code%20generate.png)
+![entities](../../_images/code%20generate.png)
 
 Select what to generate
 
-![generate-actons](../../images/generate%20actions.png)
+![generate-actons](../../_images/generate%20actions.png)
 
 Online editing dto
 
-![edit dtos](../../images/edit%20dtos.png)
+![edit dtos](../../_images/edit%20dtos.png)
 
 ### front-end code generation
 
@@ -50,4 +50,4 @@ To use front-end code generation, you first need to add`Swagger url`, please ref
 - After the document is loaded successfully, click`js` icon in the upper right corner to pop up the generation pop-up window.
 - Fill in the corresponding parameters and click Generate
 
-![front-end](../../images/front-end.png)
+![front-end](../../_images/front-end.png)

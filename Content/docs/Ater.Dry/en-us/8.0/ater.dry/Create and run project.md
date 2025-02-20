@@ -4,11 +4,11 @@
 
 Click the Create button to go to the solution creation page.
 
-:::image type="content" source="../ images/createSolution.jpg" alt-text="create solution":::
-
+![create solution](../_images/createSolution.jpg)
+            
 You will see the following page, please fill in the solution name and local path, then click Create.
 
-:::image type="content" source="../ images/createSolutionPage.jpg" alt-text="create solution page":::
+![create solution page](../_images/createSolutionPage.jpg)
 
 ## Run the solution
 

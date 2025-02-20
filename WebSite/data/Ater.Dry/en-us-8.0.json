@@ -7,25 +7,45 @@
       "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry",
       "Children": [
         {
-          "Name": "Code Generation Instructions",
-          "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Code Generation Instructions",
+          "Name": "Studio",
+          "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Studio",
           "Children": [],
           "Docs": [
             {
-              "Title": "DTO生成",
-              "HtmlPath": "Ater.Dry\\ater.dry\\Code Generation Instructions\\DTO生成.html",
-              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Code Generation Instructions\\DTO生成.md",
-              "FileName": "DTO生成.md",
+              "Title": "Dry Studio",
+              "HtmlPath": "Ater.Dry/ater.dry/Studio/Dry Studio.html",
+              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Studio\\Dry Studio.md",
+              "FileName": "Dry Studio.md",
               "PublishTime": "2025-01-06T18:56:27+08:00",
               "CreatedTime": "2025-01-06T18:56:27+08:00",
               "UpdatedTime": "2025-01-06T18:56:27+08:00",
               "Catalog": null
             },
             {
-              "Title": "Manager生成",
-              "HtmlPath": "Ater.Dry\\ater.dry\\Code Generation Instructions\\Manager生成.html",
-              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Code Generation Instructions\\Manager生成.md",
-              "FileName": "Manager生成.md",
+              "Title": "疑难问题",
+              "HtmlPath": "Ater.Dry/ater.dry/Studio/疑难问题.html",
+              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Studio\\疑难问题.md",
+              "FileName": "疑难问题.md",
+              "PublishTime": "2025-01-06T18:56:27+08:00",
+              "CreatedTime": "2025-01-06T18:56:27+08:00",
+              "UpdatedTime": "2025-01-06T18:56:27+08:00",
+              "Catalog": null
+            },
+            {
+              "Title": "配置说明",
+              "HtmlPath": "Ater.Dry/ater.dry/Studio/配置说明.html",
+              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Studio\\配置说明.md",
+              "FileName": "配置说明.md",
+              "PublishTime": "2025-01-06T18:56:27+08:00",
+              "CreatedTime": "2025-01-06T18:56:27+08:00",
+              "UpdatedTime": "2025-01-06T18:56:27+08:00",
+              "Catalog": null
+            },
+            {
+              "Title": "高级自定义功能",
+              "HtmlPath": "Ater.Dry/ater.dry/Studio/高级自定义功能.html",
+              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Studio\\高级自定义功能.md",
+              "FileName": "高级自定义功能.md",
               "PublishTime": "2025-01-06T18:56:27+08:00",
               "CreatedTime": "2025-01-06T18:56:27+08:00",
               "UpdatedTime": "2025-01-06T18:56:27+08:00",
@@ -41,7 +61,7 @@
           "Docs": [
             {
               "Title": "Dto生成",
-              "HtmlPath": "Ater.Dry\\ater.dry\\Command line\\Dto生成.html",
+              "HtmlPath": "Ater.Dry/ater.dry/Command line/Dto生成.html",
               "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Command line\\Dto生成.md",
               "FileName": "Dto生成.md",
               "PublishTime": "2025-01-06T18:56:27+08:00",
@@ -51,7 +71,7 @@
             },
             {
               "Title": "Manager生成",
-              "HtmlPath": "Ater.Dry\\ater.dry\\Command line\\Manager生成.html",
+              "HtmlPath": "Ater.Dry/ater.dry/Command line/Manager生成.html",
               "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Command line\\Manager生成.md",
               "FileName": "Manager生成.md",
               "PublishTime": "2025-01-06T18:56:27+08:00",
@@ -60,28 +80,8 @@
               "Catalog": null
             },
             {
-              "Title": "Studio",
-              "HtmlPath": "Ater.Dry\\ater.dry\\Command line\\Studio.html",
-              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Command line\\Studio.md",
-              "FileName": "Studio.md",
-              "PublishTime": "2025-01-06T18:56:27+08:00",
-              "CreatedTime": "2025-01-06T18:56:27+08:00",
-              "UpdatedTime": "2025-01-06T18:56:27+08:00",
-              "Catalog": null
-            },
-            {
-              "Title": "前端请求服务生成",
-              "HtmlPath": "Ater.Dry\\ater.dry\\Command line\\前端请求服务生成.html",
-              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Command line\\前端请求服务生成.md",
-              "FileName": "前端请求服务生成.md",
-              "PublishTime": "2025-01-06T18:56:27+08:00",
-              "CreatedTime": "2025-01-06T18:56:27+08:00",
-              "UpdatedTime": "2025-01-06T18:56:27+08:00",
-              "Catalog": null
-            },
-            {
               "Title": "控制器接口生成",
-              "HtmlPath": "Ater.Dry\\ater.dry\\Command line\\控制器接口生成.html",
+              "HtmlPath": "Ater.Dry/ater.dry/Command line/控制器接口生成.html",
               "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Command line\\控制器接口生成.md",
               "FileName": "控制器接口生成.md",
               "PublishTime": "2025-01-06T18:56:27+08:00",
@@ -90,8 +90,28 @@
               "Catalog": null
             },
             {
+              "Title": "前端请求服务生成",
+              "HtmlPath": "Ater.Dry/ater.dry/Command line/前端请求服务生成.html",
+              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Command line\\前端请求服务生成.md",
+              "FileName": "前端请求服务生成.md",
+              "PublishTime": "2025-01-06T18:56:27+08:00",
+              "CreatedTime": "2025-01-06T18:56:27+08:00",
+              "UpdatedTime": "2025-01-06T18:56:27+08:00",
+              "Catalog": null
+            },
+            {
+              "Title": "Studio",
+              "HtmlPath": "Ater.Dry/ater.dry/Command line/Studio.html",
+              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Command line\\Studio.md",
+              "FileName": "Studio.md",
+              "PublishTime": "2025-01-06T18:56:27+08:00",
+              "CreatedTime": "2025-01-06T18:56:27+08:00",
+              "UpdatedTime": "2025-01-06T18:56:27+08:00",
+              "Catalog": null
+            },
+            {
               "Title": "配置",
-              "HtmlPath": "Ater.Dry\\ater.dry\\Command line\\配置.html",
+              "HtmlPath": "Ater.Dry/ater.dry/Command line/配置.html",
               "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Command line\\配置.md",
               "FileName": "配置.md",
               "PublishTime": "2025-01-06T18:56:27+08:00",
@@ -103,45 +123,25 @@
           "Parent": null
         },
         {
-          "Name": "Studio",
-          "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Studio",
+          "Name": "Code Generation Instructions",
+          "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Code Generation Instructions",
           "Children": [],
           "Docs": [
             {
-              "Title": "Dry Studio",
-              "HtmlPath": "Ater.Dry\\ater.dry\\Studio\\Dry Studio.html",
-              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Studio\\Dry Studio.md",
-              "FileName": "Dry Studio.md",
+              "Title": "DTO生成",
+              "HtmlPath": "Ater.Dry/ater.dry/Code Generation Instructions/DTO生成.html",
+              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Code Generation Instructions\\DTO生成.md",
+              "FileName": "DTO生成.md",
               "PublishTime": "2025-01-06T18:56:27+08:00",
               "CreatedTime": "2025-01-06T18:56:27+08:00",
               "UpdatedTime": "2025-01-06T18:56:27+08:00",
               "Catalog": null
             },
             {
-              "Title": "疑难问题",
-              "HtmlPath": "Ater.Dry\\ater.dry\\Studio\\疑难问题.html",
-              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Studio\\疑难问题.md",
-              "FileName": "疑难问题.md",
-              "PublishTime": "2025-01-06T18:56:27+08:00",
-              "CreatedTime": "2025-01-06T18:56:27+08:00",
-              "UpdatedTime": "2025-01-06T18:56:27+08:00",
-              "Catalog": null
-            },
-            {
-              "Title": "配置说明",
-              "HtmlPath": "Ater.Dry\\ater.dry\\Studio\\配置说明.html",
-              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Studio\\配置说明.md",
-              "FileName": "配置说明.md",
-              "PublishTime": "2025-01-06T18:56:27+08:00",
-              "CreatedTime": "2025-01-06T18:56:27+08:00",
-              "UpdatedTime": "2025-01-06T18:56:27+08:00",
-              "Catalog": null
-            },
-            {
-              "Title": "高级自定义功能",
-              "HtmlPath": "Ater.Dry\\ater.dry\\Studio\\高级自定义功能.html",
-              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Studio\\高级自定义功能.md",
-              "FileName": "高级自定义功能.md",
+              "Title": "Manager生成",
+              "HtmlPath": "Ater.Dry/ater.dry/Code Generation Instructions/Manager生成.html",
+              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Code Generation Instructions\\Manager生成.md",
+              "FileName": "Manager生成.md",
               "PublishTime": "2025-01-06T18:56:27+08:00",
               "CreatedTime": "2025-01-06T18:56:27+08:00",
               "UpdatedTime": "2025-01-06T18:56:27+08:00",
@@ -153,10 +153,10 @@
       ],
       "Docs": [
         {
-          "Title": "Create and run project",
-          "HtmlPath": "Ater.Dry\\ater.dry\\Create and run project.html",
-          "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Create and run project.md",
-          "FileName": "Create and run project.md",
+          "Title": "Overview",
+          "HtmlPath": "Ater.Dry/ater.dry/Overview.html",
+          "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Overview.md",
+          "FileName": "Overview.md",
           "PublishTime": "2025-01-06T18:56:27+08:00",
           "CreatedTime": "2025-01-06T18:56:27+08:00",
           "UpdatedTime": "2025-01-06T18:56:27+08:00",
@@ -164,7 +164,7 @@
         },
         {
           "Title": "Install",
-          "HtmlPath": "Ater.Dry\\ater.dry\\Install.html",
+          "HtmlPath": "Ater.Dry/ater.dry/Install.html",
           "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Install.md",
           "FileName": "Install.md",
           "PublishTime": "2025-01-06T18:56:27+08:00",
@@ -173,10 +173,10 @@
           "Catalog": null
         },
         {
-          "Title": "Overview",
-          "HtmlPath": "Ater.Dry\\ater.dry\\Overview.html",
-          "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Overview.md",
-          "FileName": "Overview.md",
+          "Title": "Create and run project",
+          "HtmlPath": "Ater.Dry/ater.dry/Create and run project.html",
+          "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.dry\\Create and run project.md",
+          "FileName": "Create and run project.md",
           "PublishTime": "2025-01-06T18:56:27+08:00",
           "CreatedTime": "2025-01-06T18:56:27+08:00",
           "UpdatedTime": "2025-01-06T18:56:27+08:00",
@@ -199,10 +199,10 @@
               "Children": [],
               "Docs": [
                 {
-                  "Title": "Application",
-                  "HtmlPath": "Ater.Dry\\ater.web\\教程\\分层项目说明\\Application.html",
-                  "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\教程\\分层项目说明\\Application.md",
-                  "FileName": "Application.md",
+                  "Title": "Infrastructure",
+                  "HtmlPath": "Ater.Dry/ater.web/教程/分层项目说明/Infrastructure.html",
+                  "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\教程\\分层项目说明\\Infrastructure.md",
+                  "FileName": "Infrastructure.md",
                   "PublishTime": "2025-01-06T18:56:27+08:00",
                   "CreatedTime": "2025-01-06T18:56:27+08:00",
                   "UpdatedTime": "2025-01-06T18:56:27+08:00",
@@ -210,7 +210,7 @@
                 },
                 {
                   "Title": "Definition",
-                  "HtmlPath": "Ater.Dry\\ater.web\\教程\\分层项目说明\\Definition.html",
+                  "HtmlPath": "Ater.Dry/ater.web/教程/分层项目说明/Definition.html",
                   "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\教程\\分层项目说明\\Definition.md",
                   "FileName": "Definition.md",
                   "PublishTime": "2025-01-06T18:56:27+08:00",
@@ -219,20 +219,20 @@
                   "Catalog": null
                 },
                 {
-                  "Title": "Http.API",
-                  "HtmlPath": "Ater.Dry\\ater.web\\教程\\分层项目说明\\Http.API.html",
-                  "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\教程\\分层项目说明\\Http.API.md",
-                  "FileName": "Http.API.md",
+                  "Title": "Application",
+                  "HtmlPath": "Ater.Dry/ater.web/教程/分层项目说明/Application.html",
+                  "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\教程\\分层项目说明\\Application.md",
+                  "FileName": "Application.md",
                   "PublishTime": "2025-01-06T18:56:27+08:00",
                   "CreatedTime": "2025-01-06T18:56:27+08:00",
                   "UpdatedTime": "2025-01-06T18:56:27+08:00",
                   "Catalog": null
                 },
                 {
-                  "Title": "Infrastructure",
-                  "HtmlPath": "Ater.Dry\\ater.web\\教程\\分层项目说明\\Infrastructure.html",
-                  "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\教程\\分层项目说明\\Infrastructure.md",
-                  "FileName": "Infrastructure.md",
+                  "Title": "Http.API",
+                  "HtmlPath": "Ater.Dry/ater.web/教程/分层项目说明/Http.API.html",
+                  "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\教程\\分层项目说明\\Http.API.md",
+                  "FileName": "Http.API.md",
                   "PublishTime": "2025-01-06T18:56:27+08:00",
                   "CreatedTime": "2025-01-06T18:56:27+08:00",
                   "UpdatedTime": "2025-01-06T18:56:27+08:00",
@@ -244,38 +244,20 @@
           ],
           "Docs": [
             {
-              "Title": "Organization code",
-              "HtmlPath": "Ater.Dry\\ater.web\\教程\\Organization code.html",
-              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\教程\\Organization code.md",
-              "FileName": "Organization code.md",
-              "PublishTime": "2025-01-06T18:56:27+08:00",
-              "CreatedTime": "2025-01-06T18:56:27+08:00",
-              "UpdatedTime": "2025-01-06T18:56:27+08:00",
-              "Catalog": null
-            },
-            {
               "Title": "Project Structure",
-              "HtmlPath": "Ater.Dry\\ater.web\\教程\\Project Structure.html",
+              "HtmlPath": "Ater.Dry/ater.web/教程/Project Structure.html",
               "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\教程\\Project Structure.md",
               "FileName": "Project Structure.md",
               "PublishTime": "2025-01-06T18:56:27+08:00",
               "CreatedTime": "2025-01-06T18:56:27+08:00",
               "UpdatedTime": "2025-01-06T18:56:27+08:00",
               "Catalog": null
-            }
-          ],
-          "Parent": null
-        },
-        {
-          "Name": "示例",
-          "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\示例",
-          "Children": [],
-          "Docs": [
+            },
             {
-              "Title": "关注业务逻辑",
-              "HtmlPath": "Ater.Dry\\ater.web\\示例\\关注业务逻辑.html",
-              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\示例\\关注业务逻辑.md",
-              "FileName": "关注业务逻辑.md",
+              "Title": "Organization code",
+              "HtmlPath": "Ater.Dry/ater.web/教程/Organization code.html",
+              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\教程\\Organization code.md",
+              "FileName": "Organization code.md",
               "PublishTime": "2025-01-06T18:56:27+08:00",
               "CreatedTime": "2025-01-06T18:56:27+08:00",
               "UpdatedTime": "2025-01-06T18:56:27+08:00",
@@ -291,7 +273,7 @@
           "Docs": [
             {
               "Title": "实体定义",
-              "HtmlPath": "Ater.Dry\\ater.web\\约定和规范\\实体定义.html",
+              "HtmlPath": "Ater.Dry/ater.web/约定和规范/实体定义.html",
               "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\约定和规范\\实体定义.md",
               "FileName": "实体定义.md",
               "PublishTime": "2025-01-06T18:56:27+08:00",
@@ -301,7 +283,7 @@
             },
             {
               "Title": "第三方依赖",
-              "HtmlPath": "Ater.Dry\\ater.web\\约定和规范\\第三方依赖.html",
+              "HtmlPath": "Ater.Dry/ater.web/约定和规范/第三方依赖.html",
               "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\约定和规范\\第三方依赖.md",
               "FileName": "第三方依赖.md",
               "PublishTime": "2025-01-06T18:56:27+08:00",
@@ -311,9 +293,27 @@
             },
             {
               "Title": "约定",
-              "HtmlPath": "Ater.Dry\\ater.web\\约定和规范\\约定.html",
+              "HtmlPath": "Ater.Dry/ater.web/约定和规范/约定.html",
               "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\约定和规范\\约定.md",
               "FileName": "约定.md",
+              "PublishTime": "2025-01-06T18:56:27+08:00",
+              "CreatedTime": "2025-01-06T18:56:27+08:00",
+              "UpdatedTime": "2025-01-06T18:56:27+08:00",
+              "Catalog": null
+            }
+          ],
+          "Parent": null
+        },
+        {
+          "Name": "示例",
+          "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\示例",
+          "Children": [],
+          "Docs": [
+            {
+              "Title": "关注业务逻辑",
+              "HtmlPath": "Ater.Dry/ater.web/示例/关注业务逻辑.html",
+              "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\示例\\关注业务逻辑.md",
+              "FileName": "关注业务逻辑.md",
               "PublishTime": "2025-01-06T18:56:27+08:00",
               "CreatedTime": "2025-01-06T18:56:27+08:00",
               "UpdatedTime": "2025-01-06T18:56:27+08:00",
@@ -329,7 +329,7 @@
           "Docs": [
             {
               "Title": "自定义Manager行为",
-              "HtmlPath": "Ater.Dry\\ater.web\\自定义\\自定义Manager行为.html",
+              "HtmlPath": "Ater.Dry/ater.web/自定义/自定义Manager行为.html",
               "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\自定义\\自定义Manager行为.md",
               "FileName": "自定义Manager行为.md",
               "PublishTime": "2025-01-06T18:56:27+08:00",
@@ -347,7 +347,7 @@
           "Docs": [
             {
               "Title": "日志组件",
-              "HtmlPath": "Ater.Dry\\ater.web\\高级\\日志组件.html",
+              "HtmlPath": "Ater.Dry/ater.web/高级/日志组件.html",
               "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\高级\\日志组件.md",
               "FileName": "日志组件.md",
               "PublishTime": "2025-01-06T18:56:27+08:00",
@@ -357,7 +357,7 @@
             },
             {
               "Title": "程序初始化",
-              "HtmlPath": "Ater.Dry\\ater.web\\高级\\程序初始化.html",
+              "HtmlPath": "Ater.Dry/ater.web/高级/程序初始化.html",
               "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\高级\\程序初始化.md",
               "FileName": "程序初始化.md",
               "PublishTime": "2025-01-06T18:56:27+08:00",
@@ -372,7 +372,7 @@
       "Docs": [
         {
           "Title": "Overview",
-          "HtmlPath": "Ater.Dry\\ater.web\\Overview.html",
+          "HtmlPath": "Ater.Dry/ater.web/Overview.html",
           "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\Overview.md",
           "FileName": "Overview.md",
           "PublishTime": "2025-01-06T18:56:27+08:00",
@@ -382,7 +382,7 @@
         },
         {
           "Title": "Quick Start",
-          "HtmlPath": "Ater.Dry\\ater.web\\Quick Start.html",
+          "HtmlPath": "Ater.Dry/ater.web/Quick Start.html",
           "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\Quick Start.md",
           "FileName": "Quick Start.md",
           "PublishTime": "2025-01-06T18:56:27+08:00",
@@ -392,7 +392,7 @@
         },
         {
           "Title": "常见问题",
-          "HtmlPath": "Ater.Dry\\ater.web\\常见问题.html",
+          "HtmlPath": "Ater.Dry/ater.web/常见问题.html",
           "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\ater.web\\常见问题.md",
           "FileName": "常见问题.md",
           "PublishTime": "2025-01-06T18:56:27+08:00",
@@ -401,13 +401,6 @@
           "Catalog": null
         }
       ],
-      "Parent": null
-    },
-    {
-      "Name": "images",
-      "Path": "./Content\\docs\\Ater.Dry\\en-us\\8.0\\images",
-      "Children": [],
-      "Docs": [],
       "Parent": null
     }
   ],

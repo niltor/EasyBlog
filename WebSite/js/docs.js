@@ -68,52 +68,85 @@ class Docs {
     }
   }
 
-  selectLanguage(language) {
+  async selectLanguage(language) {
     if (language === this.language) {
       window.location.reload();
       return;
     }
+    let doc = await this.getFirstDoc(language, null);
 
-    var url = new URL(window.location.href);
-    var path = url.pathname;
-    var htmlName = path.split('/').pop();
-    url.pathname = `/docs/${this.docName}/${language}/${this.version}/${htmlName}`;
+    if (doc) {
+      if (doc.HtmlPath) {
+        var url = new URL(window.location.href);
+        let relativePath = doc.HtmlPath.replace(this.docName, '');
+        url.pathname = `/docs/${this.docName}/${language}/${this.version}${relativePath}`;
 
-    // 判断新的url是否返回404
-    fetch(url.href)
-      .then(response => {
-        if (response.status === 404) {
-          alert(`The language ${language} is not available for this document.`);
-          return;
-        } else {
-          window.location.href = url.href;
-        }
-      });
+        fetch(url.href)
+          .then(response => {
+            if (response.status === 404) {
+              alert(`The language ${language} is not available for this document.`);
+              return;
+            } else {
+              window.location.href = url.href;
+            }
+          });
+      }
+    } else {
+      alert(`The language ${language} is not available for this document.`);
+    }
   }
 
-  redirectToVersion(version) {
-    var url = new URL(window.location.href);
-    var path = url.pathname;
-    var htmlName = path.split('/').pop();
-    url.pathname = `/docs/${this.docName}/${this.language}/${version}/${htmlName}`;
+  async redirectToVersion(version) {
+    let doc = await this.getFirstDoc(null, version);
+    if (doc) {
+      if (doc.HtmlPath) {
+        var url = new URL(window.location.href);
+        let relativePath = doc.HtmlPath.replace(this.docName, '');
+        url.pathname = `/docs/${this.docName}/${this.language}/${version}${relativePath}`;
 
-    // 判断新的url是否返回404
-    fetch(url.href)
-      .then(response => {
-        if (response.status === 404) {
-          alert(`The version ${version} is not available for this document.`);
-          return;
-        } else {
-          window.location.href = url.href;
+        fetch(url.href)
+          .then(response => {
+            if (response.status === 404) {
+              alert(`The version ${version} is not available for this document.`);
+              return;
+            } else {
+              window.location.href = url.href;
+            }
+          });
+      }
+    } else {
+      alert(`The version ${version} is not available for this document.`);
+    }
+  }
+
+  async getData(language, version) {
+    language = language || this.language;
+    version = version || this.version;
+    const url = `/data/${this.docName}/${language}-${version}.json`;
+
+    let res = await fetch(url);
+    if (!res.ok) {
+      console.log('Error:', res.status);
+      return null;
+    }
+    const data = await res.json();
+    return data;
+  }
+
+  async getFirstDoc(language, version) {
+    let data = await this.getData(language, version);
+    if (data) {
+      if (data.Docs.length > 0) {
+        return data.Docs[0];
+      } else {
+        let notNullFirst = data.Children.filter(item => item.Docs.length > 0);
+        if (notNullFirst.length === 0) {
+          return null;
         }
-      });
+        return notNullFirst[0].Docs[0];
+      }
+    }
   }
 
 }
 const doc = new Docs();
-
-
-// interface UrlInfo {
-//   url: string;
-//   title: string;
-// }
