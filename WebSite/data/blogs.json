@@ -31,6 +31,24 @@
       "Parent": null
     },
     {
+      "Name": "AI",
+      "Path": "./Content\\blogs\\AI",
+      "Children": [],
+      "Docs": [
+        {
+          "Title": "DeepSeek API的使用经验分享",
+          "HtmlPath": "AI/DeepSeek API的使用经验分享.html",
+          "Path": "./Content\\blogs\\AI\\DeepSeek API的使用经验分享.md",
+          "FileName": "DeepSeek API的使用经验分享.md",
+          "PublishTime": "2025-03-04T11:53:32+08:00",
+          "CreatedTime": "2025-03-04T11:53:32+08:00",
+          "UpdatedTime": "2025-03-04T11:53:32+08:00",
+          "Catalog": null
+        }
+      ],
+      "Parent": null
+    },
+    {
       "Name": "Angular",
       "Path": "./Content\\blogs\\Angular",
       "Children": [],
