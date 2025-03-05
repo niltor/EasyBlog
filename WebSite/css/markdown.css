@@ -564,6 +564,7 @@ pre {
     }
 
     &>.comment,
+    &>.htmlComment,
     &>.prolog,
     >.xmlDocComment {
         color: #6a9955;
@@ -705,7 +706,8 @@ pre {
         color: #d7ba7d;
     }
 
-    &>.tag {
+    &>.tag,
+    &>.htmlTagDelimiter {
         color: #569cd6;
 
         &>.punctuation {
@@ -718,11 +720,13 @@ pre {
         color: #808080;
     }
 
-    &>.attr-name {
+    &>.attr-name,
+    &>.htmlAttributeName {
         color: #9cdcfe;
     }
 
     &>.attr-value,
+    &>.htmlAttributeValue,
     &>.attr-value .punctuation {
         color: #ce9178;
 
@@ -732,7 +736,8 @@ pre {
 
     }
 
-    &>.entity {
+    &>.entity,
+    &>.htmlElementName {
         color: #569cd6;
     }
 

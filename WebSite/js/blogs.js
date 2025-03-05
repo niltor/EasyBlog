@@ -96,7 +96,7 @@ class Index {
             blogList.innerHTML = '';
             this.blogs.forEach(blog => {
                 let blogDiv = document.createElement('div');
-                blogDiv.className = 'w-100 rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2';
+                blogDiv.className = 'w-full rounded overflow-hidden shadow-lg dark:bg-neutral-800 my-2';
                 let blogInnerDiv = document.createElement('div');
                 blogInnerDiv.className = 'px-6 py-3';
                 let blogTitleDiv = document.createElement('div');
