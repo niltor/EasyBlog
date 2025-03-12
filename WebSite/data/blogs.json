@@ -8,6 +8,16 @@
       "Children": [],
       "Docs": [
         {
+          "Title": ".NET9 更新中的一些重点关注内容",
+          "HtmlPath": ".NET/.NET9 更新中的一些重点关注内容.html",
+          "Path": "./Content\\blogs\\.NET\\.NET9 更新中的一些重点关注内容.md",
+          "FileName": ".NET9 更新中的一些重点关注内容.md",
+          "PublishTime": "2025-03-10T16:26:13+08:00",
+          "CreatedTime": "2025-03-10T15:41:56+08:00",
+          "UpdatedTime": "2025-03-10T16:26:13+08:00",
+          "Catalog": null
+        },
+        {
           "Title": "使用dotnet 创建npm包",
           "HtmlPath": ".NET/使用dotnet 创建npm包.html",
           "Path": "./Content\\blogs\\.NET\\使用dotnet 创建npm包.md",
@@ -40,9 +50,9 @@
           "HtmlPath": "AI/DeepSeek API的使用经验分享.html",
           "Path": "./Content\\blogs\\AI\\DeepSeek API的使用经验分享.md",
           "FileName": "DeepSeek API的使用经验分享.md",
-          "PublishTime": "2025-03-04T17:17:38+08:00",
+          "PublishTime": "2025-03-10T18:35:06+08:00",
           "CreatedTime": "2025-03-04T11:53:32+08:00",
-          "UpdatedTime": "2025-03-04T17:17:38+08:00",
+          "UpdatedTime": "2025-03-10T18:35:06+08:00",
           "Catalog": null
         }
       ],
@@ -253,6 +263,16 @@
           "PublishTime": "2025-03-05T15:41:09+08:00",
           "CreatedTime": "2025-03-05T15:41:09+08:00",
           "UpdatedTime": "2025-03-05T15:41:09+08:00",
+          "Catalog": null
+        },
+        {
+          "Title": "快速提供API服务的几种方式",
+          "HtmlPath": "Else/快速提供API服务的几种方式.html",
+          "Path": "./Content\\blogs\\Else\\快速提供API服务的几种方式.md",
+          "FileName": "快速提供API服务的几种方式.md",
+          "PublishTime": "2025-03-10T15:41:56+08:00",
+          "CreatedTime": "2025-03-07T15:46:59+08:00",
+          "UpdatedTime": "2025-03-10T15:41:56+08:00",
           "Catalog": null
         }
       ],
