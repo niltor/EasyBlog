@@ -3,76 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="DeepSeek API的使用经验分享" />
+    <meta name="description" content="DeepSeek API的使用经验" />
     <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/markdown.css">
     <link rel="icon" type="image/png" href="/favicon.ico" />
     <script src="/js/markdown.js"></script>
-    <title>DeepSeek API的使用经验分享-独思</title>
+    <title>DeepSeek API的使用经验-独思</title>
     
 </head>
 <body class="px-4 sm:px-6 lg:px-8 dark:bg-neutral-900 pb-4">
     <div class="container mx-auto flex mt-2" style="margin-bottom: 48px;">
+        <div class="w-1/4 max-sm:hidden sm:block text-right pr-4 mt-3">
+        <div class="mt-1 sticky top-2">
+  <span class="text">
+    last update 
+  </span>
+  <br>
+  <small>2025-03-10 18:35</small>
+</div>
+        </div>
         <div class="sm:w-3/4 sm:pr-4 w-full markdown-content">
-        <h1 id="deepseek-api的使用经验分享">DeepSeek API的使用经验分享</h1>
-<p>DeepSeek在最近几个月可谓是风头无两，在各种场合谈到大语言模型时，它总会随着<code>OpenAI</code>一起被提及。作为一个开发者和实际的用户，而不是那些为了赚流量博眼球的外行<code>自媒体</code>，我想分享一下作为开发者和实际用户对<code>DeepSeek</code>的一些看法和使用经验。</p>
+        <h1 id="deepseek-api的使用经验">DeepSeek API的使用经验</h1>
+<p>相信大家早就被DeepSeek刷屏了，各大平台和自媒体也抓住热点，借机推广自己的产品，疯狂赚米。但大家很少看到真实用户的使用体验，今天我就结合个人的经历，以一个开发者的视角来分享一下DeepSeek API的使用体验。</p>
 <h2 id="背景">背景</h2>
-<p>去年在做<code>ater.dry.cli</code>项目时，就尝试将大语言模型的能力集成到项目中，不过一直没有找到很具体的结合点，当时就尝试对接API，在前端页面以聊天的方式进行交互。然后就选择了<code>DeepSeek API</code>，也就有了后续的<code>DeepSeek.NET SDK</code>开源项目。</p>
+<p>DeepSeek在2024年因其低廉的价格受到关注。2024年我在开发自己的代码生成工具时，尝试将大语言模型的能力集成到项目中，于是对接了现有的API，将前后端交互打通，当时选择了<code>DeepSeek API</code>，也因此有了后续的<code>DeepSeek.NET SDK</code>开源项目。</p>
 <h2 id="为什么选择deepseek">为什么选择DeepSeek</h2>
 <p>大语言模型有很多，而DeepSeek的一些优势让我选择了它：</p>
 <ul>
-<li>由于网络及其他限制问题，<code>OpenAI</code>的API作为首要的备选方案，而不是首选方案。</li>
-<li>DeepSeek API服务非常容易获得，只要注册账号即可使用，并且有免费额度，零成本上手。而其他的服务可能 中是作为云服务的其中一部分，申请使用的步骤繁琐复杂。</li>
-<li>价格非常便宜，可以说是国内最早最便宜提供API服务的提供商之一。</li>
+<li>由于网络及其他限制问题，<code>OpenAI</code>的API作为备选方案，而不是首选方案。</li>
+<li>DeepSeek API服务非常容易获得，只需注册账号即可使用，并且有免费额度，零成本上手。而其他服务可能作为云服务的一部分，申请使用步骤繁琐复杂。</li>
+<li>价格非常便宜，是国内最早最便宜提供API服务的提供商之一。</li>
 <li>效果达标，这是所有的前提，如果效果不好，其他都是浮云。</li>
 <li>不限并发(很大的优势)。</li>
 </ul>
 <div class="markdown-alert markdown-alert-note">
 <p class="markdown-alert-title"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>早期V1版本，会遇到一些问题，如要求返回<code>Json</code>时，偶尔会出现格式错误的情况。不过这个问题在后续模型中得到缓解，后续版本中也可以明确指定返回Json格式。</p>
+<p>早期V1版本会遇到一些问题，如要求返回<code>Json</code>时，偶尔会出现格式错误的情况。不过这个问题在后续模型中得到缓解，后续版本中也可以明确指定返回Json格式。</p>
 </div>
 <h2 id="deepseeknet-sdk">DeepSeek.NET SDK</h2>
-<p>要将DeepSeek API集成到项目中，我们需要通过<code>HTTP</code>请求来调用API，我首先使用了<code>Open AI</code>的<code>C#</code>SDK，当我使用其<code>Stream Chat</code>功能时，会发现<code>DeepSeek</code>流式输出的格式与<code>Open AI</code>的并不一致，而在SDK层面上又无法自定义处理过程，当时<code>Nuget</code>上也没有相应的包，所以我只能自己实现。</p>
+<p>要将DeepSeek API集成到项目中，我们需要通过<code>HTTP</code>请求来调用API。我首先使用了<code>Open AI</code>的<code>C#</code>SDK，当我使用其<code>Stream Chat</code>功能时，发现<code>DeepSeek</code>流式输出的格式与<code>Open AI</code>的不一致，而在SDK层面上又无法自定义处理过程，当时<code>Nuget</code>上也没有相应的包，只好自己去实现了。</p>
 <h3 id="第一个版本">第一个版本</h3>
-<p>第一个版本(v1.0.x)大概在2024年5月份就发布到nuget上了，主要是实现了<code>Chat</code>功能，包括流式的处理，满足自己在项目的使用场景。</p>
-<p>包括后续我在帮朋友做一个<code>AI文案改写</code>的功能时，就直接使用了该<code>SDK</code>，也没有做大的改动。</p>
-<h3 id="deepseek的突然爆火">DeepSeek的突然爆火</h3>
-<p>在2024年底，我在朋友的项目中正在使用<code>DeepSeek API</code>做业务端测试，每天都要花费几十万的<code>token</code>，它的并发优势，在我们的场景中具有独特的优势，大大减少了等待时间。</p>
+<p>第一个版本(v1.0.x)大概在2024年5月份发布到nuget上，主要实现了<code>Chat</code>功能，包括流式处理，满足自己在项目中的使用场景。</p>
+<p>之后我在帮朋友做一个<code>AI文案改写</code>功能时，使用并改进了该<code>SDK</code>。</p>
+<h2 id="deepseek的突然爆火">DeepSeek的突然爆火</h2>
+<p>在2024年底，我在朋友的项目中使用<code>DeepSeek API</code>做业务端测试，每天花费几十万的<code>token</code>，它的并发优势在我们的场景中具有独特的优势，大大减少了等待时间。</p>
 <p><img src="../images/deepseek202412cost.png" alt="使用量" /></p>
-<p>很快，<code>DeepSeek-R1</code>在春节前发布了，以<code>开源推理模型</code>和<code>低训练成本</code>让<code>DeepSeek</code>短时间内在外网上爆火，我对这种<code>短时间内大量传播</code>的现象向来是不以为意的，它不符合基本的传播规律，都是人为推动的结果。而当时国内正处在<code>春节</code>前期，都在忙着准备过节，倒没多少传播。直到我发现有人在我的<code>github</code>项目中开始提<code>issue</code>，而且还是国外的用户，并且<code>star</code>的数量也在缓慢增加。为了解决相关的问题，我再一次更新了<code>SDK</code>，花了两天多的时间，将<code>DeepSeek API</code>提供的功能，整体都在SDK中实现了，并在后续的版本添加了对<code>ASP.NET Core</code>的支持，并完善和修复了一些问题，并提供了更加详细的使用示例。在春节及后续一段时间，<code>star</code>的数量也开始逐渐增多。</p>
+<p>很快，<code>DeepSeek-R1</code>在春节前发布了，以<code>开源推理模型</code>和<code>低训练成本</code>让<code>DeepSeek</code>短时间内在外网上爆火。我对这种<code>短时间内大量传播</code>的现象向来是不以为意的，它不符合基本的传播规律，都是人为推动的结果。</p>
+<p>当时国内正处在<code>春节</code>前期，都在忙着准备过节，倒没多少传播。直到我发现有人在我的<code>github</code>项目中开始提<code>issue</code>，而且还是国外的用户，并且<code>star</code>的数量也在缓慢增加。为了解决相关问题，我再一次更新了<code>SDK</code>，花了两天多的时间，将<code>DeepSeek API</code>提供的功能整体都在SDK中实现了，并在后续版本添加了对<code>ASP.NET Core</code>的支持，完善和修复了一些问题，并提供了更加详细的使用示例。在春节及后续一段时间，<code>star</code>的数量也开始逐渐增多。</p>
 <p><img src="../images/star-history.png" alt="star" /></p>
-<p>而在<code>Nuget</code>上，由于先发优势，也是下载量最多的<code>DeepSeek SDK</code>包。在一些介绍<code>DeepSeek .Net SDk</code>的文章中，大部分也会提到我的开源项目。</p>
-<h3 id="爆火背后的问题">爆火背后的问题</h3>
-<p><code>DeepSeek-R1</code>的热度在国外也就持续了一周左右的时间，更多国外的用户是拿<code>DeepSeek-R1</code>来diss<code>OpenAI</code>，想让<code>OpenAI</code>推出更强大更便宜的模型。并且<code>DeepSeek</code>很快也就丧失了提供<code>服务</code>的能力，其官方聊天和API都受到了极大的影响，几本处于<code>无法使用的</code>情况。</p>
-<p>在春节过后，节前的项目开始出现问题，<code>超时</code>成为了常态。在<code>文案改写</code>的场景中，过去我们仅需要<strong>30s</strong>就能完成的工作，现在快的时候需要<code>2分钟</code>，慢了时候甚至需要<code>5分钟</code>，已经完全不符合业务需求了，于是我们不得不弃用了<code>DeepSeek API</code>，并开始使用<code>混元</code>以及<code>火山</code>提供的模型。</p>
-<p>在国内各种炒作的背景下，对于实际的<code>DeepSeek</code>使用用户来说，其实是非常尴尬的，服务不可用，超时等问题持续了整整一个月的时候，这对于任何一个对外提供API服务的公司来说，其实都是非常致命的。<code>DeepSeek</code>在方面上的表现，实在是有很大的差距。</p>
-<p>从最近 <code>DeepSeek</code>官方推出的<code>闲时计费</code>服务上来看，其主要压力还是在于<code>国内</code>的访问上，而不是所谓的<code>黑客</code>攻击。因为<code>黑客</code>攻击是所有服务商都会面临的问题，在后端中，限流，防火墙等安全措施都是基本操作，这不是<code>服务瘫痪</code>的主要原因。</p>
-<h3 id="恢复服务">恢复服务</h3>
-<p>现在，官方服务终于恢复了，具体效果，后续我会再次测试，看看是否能够恢复到之前的水平。</p>
-<p>从这一系列的事件中，<code>DeepSeek</code>本身有多少受益或损失，只有他们自己知道，但我们可以看到一些基本的事实：</p>
+<p>在<code>Nuget</code>上，由于先发优势，也是下载量最多的<code>DeepSeek SDK</code>包。在一些介绍<code>DeepSeek .Net SDK</code>的文章中，大部分也会提到我的开源项目。</p>
+<h2 id="爆火之后的问题">爆火之后的问题</h2>
+<p><code>DeepSeek-R1</code>的热度在国外持续了一周左右，很多国外用户拿<code>DeepSeek-R1</code>来diss<code>OpenAI</code>，想让<code>OpenAI</code>推出更强大更便宜的模型。但是<code>DeepSeek</code>很快丧失了提供<code>服务</code>的能力，其官方聊天和API都受到了极大的影响，几乎处于<code>无法使用</code>的状态。</p>
+<p>在春节过后，节前的项目开始出现问题，<code>超时</code>成为常态。在<code>文案改写</code>的场景中，过去我们仅需<strong>30秒</strong>就能完成的工作，现在快的时候需要<code>2分钟</code>，慢的时候甚至需要<code>5分钟</code>，已经完全不符合业务需求了，于是我们不得不弃用<code>DeepSeek API</code>，并开始使用<code>混元</code>以及<code>火山</code>提供的模型。</p>
+<p>在国内各种炒作的背景下，对于实际的<code>DeepSeek</code>使用用户来说，其实是非常尴尬的，服务不可用，超时等问题持续了整整一个月，这对于任何一个对外提供API服务的公司来说，都是非常致命的。<code>DeepSeek</code>在稳定性上的表现，实在是有很大的差距。</p>
+<p>从最近 <code>DeepSeek</code>官方推出的<code>闲时计费</code>服务来看，其主要压力还是在于<code>国内</code>的访问，而不是所谓的<code>黑客</code>攻击。因为<code>黑客</code>攻击是所有服务商都会面临的问题，在后端中，限流，防火墙等安全措施都是基本操作，这不是<code>服务瘫痪</code>的主要原因。</p>
+<h2 id="恢复服务">恢复服务</h2>
+<p>现在，官方服务终于恢复了。虽然国内还有一众借DeepSeek模型推自己产品的公司，广告铺天盖地，如<code>xx元宝</code>等。但在国外，几乎没有人再讨论<code>DeepSeek</code>了，只是偶尔拿来跟<code>OpenAI</code>的新模型作价格对比，想要OpenAI降价或提供更多用量。</p>
+<p>从这一系列事件中，<code>DeepSeek</code>本身有多少受益或损失，只有他们自己知道，但我们可以看到一些基本的事实：</p>
 <ul>
 <li>DeepSeek的名字响彻全球</li>
 <li>DeepSeek的开源模型被大量使用</li>
-<li>DeepSeek 长达一个月的时间里无法提供正常的服务，其服务的使用者受到严重的影响</li>
+<li>DeepSeek 长达一个月无法提供正常服务，其服务的使用者受到严重影响</li>
 <li>大量闻名而来的用户，被官方的&quot;瘫痪&quot;所影响，体验很不好</li>
-<li>国外的模型和服务在这一波&quot;冲击&quot;下得到了快速的进步</li>
+<li>国外的模型和服务在这一波&quot;冲击&quot;下得到了快速进步</li>
 <li>国内外不少人疯狂炒作，并借着<code>Deepseek</code>的热度，充实了自己的钱包</li>
 </ul>
 <h2 id="总结">总结</h2>
-<p>最后，我想从用户的角度分享一下看法</p>
+<p>最后，我想从用户的角度分享一下看法：</p>
 <ul>
-<li>长达一个月的恢复时间，对于一个提供在线API服务的公司来说，是非常致命的，尤其是被外界疯狂炒作的情况下。</li>
+<li>长达一个月的恢复时间，对于一个提供在线API服务的公司来说，是非常致命的，尤其是在被外界疯狂炒作的情况下。</li>
 <li>一定要对接至少两个及以上大语言模型服务，以备不时之需。</li>
 <li>前期DeepSeek的低价格，不限并发的优势，已经越来越弱了。</li>
 </ul>
 <p>DeepSeek在工程上的创新和应用，让其以更低的成本和效率，训练和运行大语言模型，在资源有限的情况下，是非常有价值的。</p>
-<p>但在最火的时候，确没能拿出可靠的服务，这是一个很大的挫败，也许DeepSeek本身也没想到会突然爆火，或者说，那些炒作的人，并没有给DeepSeek本身带去什么实质的好处，反而让其瘫痪了。</p>
+<p>但在最火的时候，却没能提供可靠的服务，这是一个很大的挫败。也许DeepSeek本身也没想到会突然爆火，或者说，那些炒作的人，并没有给DeepSeek本身带来什么实质的好处，反而让其瘫痪了。</p>
 <p>相比其他公司的大量宣传和炒作，包括近期的某<code>XX元宝</code>，到处都是其广告，<code>DeepSeek</code>一直都非常低调，即便在这波<code>DeepSeek</code>热度中，官方没有借机宣传或吹嘘，没有贬低拉踩其他公司，没有强调&quot;自研&quot;，也没有“字研”创造各种名词；他们在按自己的节奏发论文，分享技术细节和开源相关工具，这是踏踏实实做事的样子。作为用户，我们希望能够使用到更加智能、稳定、便宜的服务，至于其他的，都是浮云。</p>
 
         </div>
         <div class="w-1/4 mt-1 max-sm:hidden sm:flex">
             <div class="toc-block sticky top-2">
- <p class="text-lg">导航</p>
+ <p class="text-lg">内容大纲</p>
 <ul class="toc">
 <li>
   <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#背景'">背景</a>
@@ -82,6 +92,15 @@
 </li>
 <li>
   <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#deepseek.net-sdk'">DeepSeek.NET SDK</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#deepseek的突然爆火'">DeepSeek的突然爆火</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#爆火之后的问题'">爆火之后的问题</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#恢复服务'">恢复服务</a>
 </li>
 <li>
   <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#总结'">总结</a>

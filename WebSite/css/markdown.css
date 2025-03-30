@@ -784,4 +784,6 @@ div[class*="language-html"] {
 div[class*="language-"]>pre {
     position: relative;
     z-index: 1;
+    white-space: pre-wrap;
+    overflow: auto;
 }

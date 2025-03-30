@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content=".NET 9更新中的一些重点关注内容" />
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/markdown.css">
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <script src="/js/markdown.js"></script>
+    <title>.NET 9更新中的一些重点关注内容-独思</title>
+    
+</head>
+<body class="px-4 sm:px-6 lg:px-8 dark:bg-neutral-900 pb-4">
+    <div class="container mx-auto flex mt-2" style="margin-bottom: 48px;">
+        <div class="w-1/4 max-sm:hidden sm:block text-right pr-4 mt-3">
+        <div class="mt-1 sticky top-2">
+  <span class="text">
+    last update 
+  </span>
+  <br>
+  <small>2025-03-10 16:26</small>
+</div>
+        </div>
+        <div class="sm:w-3/4 sm:pr-4 w-full markdown-content">
+        <h1 id="net-9更新中的一些重点关注内容">.NET 9更新中的一些重点关注内容</h1>
+<p>每个.NET版本相关的类库都会更新很多内容，.NET9也不例外。在这篇文章中，我将会介绍一些离开发者更近的一些内容。</p>
+<h2 id="性能更新">性能更新</h2>
+<p>性能更新是每个版本的固定内容，.NET9也不例外。但是我不会在这里详细介绍，因为官方的博客中<code>Stephen Toub</code>已经做了详细的介绍，<a href="https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-9/">点此查看官方博客</a>。</p>
+<h2 id="功能性更新">功能性更新</h2>
+<p>除了性能的改进，SDK中也更新了一些方法的使用，有的是性能改进，有的是易用性改进，有的是新增的方法，这里也不一一介绍，大家可以参考下图，你可以根据名称再搜索具体的更新内容。</p>
+<p><img src="../images/dotnet9_update.png" alt="alt text" /></p>
+<p>这里我个人比较关注的是<code>Guid V7</code>，它可以根据时间生成有序的<code>Guid</code>，这在使用<code>PostgreSQL</code>和<code>MySQL</code>数据时，生成有序的ID是非常有用的。如果使用的是<code>SQL Server</code>，<code>EF Core</code>之前版本的值生成会自动帮你生成有序的ID。</p>
+<p>升级到.NET9，你可以在客户端部分使用<code>Guid V7</code>生成Guid，以保持有序性。</p>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>由于<code>EF Core9.0</code>是基于<code>.NET8.0</code>的，所以如果你不显式的在客户端使用<code>Guid V7</code>，那么EF Core9.0并不会自动生成有序的ID，这要等到.NET10.0(SQL Server除外)。</p>
+</div>
+<p>除此之外，还有一些功能上的更新，如</p>
+<ul>
+<li>LINQ：新增 CountBy 和 AggregateBy 方法，简化了按键聚合状态的操作。</li>
+<li>加密：新增一次性哈希方法和使用 KMAC 算法的新类。</li>
+<li>反射：新增 PersistedAssemblyBuilder 类型，允许保存已发出的程序集，并支持 PDB。</li>
+<li>TimeSpan：新增 From* 方法，允许从整数创建 TimeSpan 对象，避免浮点计算的误差。</li>
+</ul>
+<p>完整的功能更新可以查看官方文档。</p>
+<h2 id="aspnet-core">ASP.NET Core</h2>
+<p>对于我个人来说，比较关注ASP.NET Core相关的内容，因为这是我最主要使用的部分。但是在.NET9中，我关注的两个点，都还只是在预览阶段，也有些许问题，以致于无法在生产环境中使用。</p>
+<h3 id="hybridcache">HybridCache</h3>
+<p><code>HybridCache</code>是一个新的缓存方案，它结合了<code>MemoryCache</code>和<code>DistributedCache</code>的优点，可以在本地缓存和分布式缓存之间进行切换。直接目前还是在预览阶段，之前我在自己的项目模板中集成时，遇到了一些问题，具体问题忘记了，总之，目前不太适合用在生产环境中。</p>
+<h3 id="microsoftaspnetcoreopenapi">Microsoft.AspNetCore.OpenApi</h3>
+<p>当前我一直使用的是<code>Swashbuckle</code>，遇到的主要问题是在项目接口和模型很多时，每次获取swagger json内容，可能要等待很长时间，大概要20s+。</p>
+<p>在.NET9中，官方提供了<code>OpenAPI</code>的集成，同时可以直接使用<code>OutputCache</code>输出缓存来解决上述问题，不需要每次获取swagger json都重新生成。</p>
+<p>虽然该类库9.0版本提供了稳定的包，但欠缺了一个十分重要的功能，让我不得不放弃使用它，那就是它目前不支持从<code>XML注释</code>中获取<code>Swagger</code>的描述信息，这就相当于我所有代码中的注释都没有意义了，这是没法接受的，而该功能需要在.NET 10中才会支持。</p>
+<p>至于其他的更新，比如<code>Blazor</code>，<code>EntityFramework</code>等，要么是我基本不怎么使用，要么就是什么值得关注的内容，所以这里就不再一一介绍了。</p>
+<h2 id="c-13">C# 13</h2>
+<p>关于语言特性，其他大家可以从官方文档中查看，近两个版本的更新，更多的是易用性上的更新。我相信可能很多开发者连C#12中的特性可能还没怎么用上。在C#12中，有两个语言上的特性，我基本上在代码中已经广泛使用了：</p>
+<h3 id="数组初始化">数组初始化</h3>
+<p>可以直接使用<code>[]</code>来初始化数组，不需要<code>new</code>关键字。</p>
+<p>代码示例：</p>
+<div class="language-csharp"><pre>
+<span class="keyword">public</span> List&lt;<span class="keyword">string</span>&gt;? Tags <span class="controlKeyword">{</span> <span class="keyword">get</span>; <span class="keyword">set</span>; <span class="controlKeyword">}</span> = <span class="controlKeyword">[</span><span class="controlKeyword">]</span>;
+<span class="keyword">public</span> <span class="className">ICollection</span>&lt;<span class="symbol">FileData</span>&gt; Files <span class="controlKeyword">{</span> <span class="keyword">get</span>; <span class="keyword">set</span>; <span class="controlKeyword">}</span> = <span class="controlKeyword">[</span><span class="controlKeyword">]</span>;
+<span class="keyword">public</span> <span class="keyword">string</span><span class="controlKeyword">[</span><span class="controlKeyword">]</span> Names <span class="controlKeyword">{</span> <span class="keyword">get</span>; <span class="keyword">set</span>; <span class="controlKeyword">}</span> = <span class="controlKeyword">[</span><span class="controlKeyword">]</span>;
+</pre></div>
+<h3 id="主构造函数">主构造函数</h3>
+<p>一开始我对该特性是没有什么感觉的，但在ASP.NET Core中，由于广泛的使用依赖注入，我发现自己的很多类，都可以使用主构造函数来简化代码。简化代码不仅意味着代码行数更少，也意味着，你手动编写代码时花的时间也更少了。</p>
+<p>代码示例：</p>
+<div class="language-csharp"><pre>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="className">CustomerRegisterManager</span><span class="controlKeyword">(</span>
+    <span class="className">DataAccessContext</span>&lt;<span class="symbol">CustomerRegister</span>&gt; dataContext,
+    DingTalkWebhookService dingTalkWebhookService,
+    <span class="className">ILogger</span>&lt;<span class="symbol">CustomerRegisterManager</span>&gt; logger,
+    CacheService cache,
+    SmsService sms,
+    IUserContext userContext<span class="controlKeyword">)</span> : ManagerBase&lt;CustomerRegister, CustomerRegisterUpdateDto, CustomerRegisterFilterDto, <span class="function">CustomerRegisterItemDto</span>&gt;<span class="controlKeyword">(</span>dataContext, logger<span class="controlKeyword">)</span>
+<span class="controlKeyword">{</span>
+    <span class="keyword">private</span> <span class="keyword">readonly</span> CacheService _cache = cache;
+    <span class="keyword">private</span> <span class="keyword">readonly</span> IUserContext _userContext = userContext;
+    <span class="keyword">private</span> <span class="keyword">readonly</span> SmsService _sms = sms;
+    <span class="keyword">private</span> <span class="keyword">readonly</span> DingTalkWebhookService _dingTalk = dingTalkWebhookService;
+<span class="controlKeyword">}</span>
+</pre></div>
+<p>在有很多要注入的服务时，主构造函数的优势就更加的明显。</p>
+<h3 id="c13的更新">C#13的更新</h3>
+<p>C#13中，主要根据设备了<code>params集合</code>，<code>新的Lock类型</code>，<code>模型匹配增加</code>等功能。</p>
+<p>完整更新内容可以从<a href="https://learn.microsoft.com/zh-cn/dotnet/csharp/whats-new/csharp-13">官方文档</a>中查看更多的更新内容。</p>
+<p>在这次更新中，提到了之前就有提到过的<code>The field keyword</code>，不过还是预览状态，这个更新是有可能会影响到我们的代码风格的，所以我觉得还是值得关注的。</p>
+<p>现在我们需要一个<code>back field</code>，用来存储属性的值</p>
+<div class="language-csharp"><pre>
+<span class="keyword">public</span> <span class="keyword">int</span> <span class="variable">PageIndex</span>
+<span class="controlKeyword">{</span>
+    <span class="keyword">get</span> =&gt; _pageIndex;
+    <span class="keyword">set</span>
+    <span class="controlKeyword">{</span>
+        _pageIndex = value;
+        <span class="keyword">if</span> <span class="controlKeyword">(</span>value &lt; <span class="number">1</span><span class="controlKeyword">)</span>
+        <span class="controlKeyword">{</span>
+            _pageIndex = <span class="number">1</span>;
+        <span class="controlKeyword">}</span>
+    <span class="controlKeyword">}</span>
+<span class="controlKeyword">}</span>
+</pre></div>
+<p>以后可以省略<code>back field</code>字段，直接使用<code>field</code>关键字</p>
+<div class="language-csharp"><pre>
+<span class="keyword">public</span> <span class="keyword">int</span> <span class="variable">PageIndex</span>
+<span class="controlKeyword">{</span>
+    <span class="keyword">set</span>
+    <span class="controlKeyword">{</span>
+        field = field;
+        <span class="keyword">if</span> <span class="controlKeyword">(</span>value &lt; <span class="number">1</span><span class="controlKeyword">)</span>
+        <span class="controlKeyword">{</span>
+            field = <span class="number">1</span>;
+        <span class="controlKeyword">}</span>
+    <span class="controlKeyword">}</span>
+<span class="controlKeyword">}</span>
+</pre></div>
+<h2 id="其他的更新">其他的更新</h2>
+<h3 id="net-cli">NET CLI</h3>
+<p>命令行工具也有所改进，在开发体验有所提升，如：</p>
+<ul>
+<li>终端日志记录器：默认启用并改进了可用性。</li>
+<li>单元测试：更好的 MSBuild 集成，允许并行运行测试</li>
+<li>工具改进：dotnet tool install 命令新增选项，允许用户决定工具是否可以在比目标版本更新的 .NET 运行时版本上运行</li>
+<li><code>dotnet publish</code>现在支持<code>http</code>协议的<code>docker registry</code>了。</li>
+</ul>
+<p>至于<code>MAUI</code>,<code>Blazor</code>,<code>.NET Aspire</code>等相关内容，没有什么特别值得一提的更新，感兴趣的可以自行查找，这里简单概括下：</p>
+<ul>
+<li>MAUI支持更新的平台，以及部分控件更新</li>
+<li>Blazor稳定性和性能上有所提升，<code>Fluent UI</code>现在也支持Blazor了</li>
+<li>.NET Aspire，首先是Dashboard的细节完善，其次是对更多组件的支持。你可以用几行代码就可以在本地运行大语言模型。</li>
+<li></li>
+</ul>
+<h3 id="ai方面的更新">AI方面的更新</h3>
+<p>微软对AI的支持力度是很大的，这主要体现在：</p>
+<ul>
+<li>OpenAI SDK的.NET类库</li>
+<li>ML.NET类库</li>
+<li>Semantic Kernel</li>
+<li>ONNX Runtime</li>
+</ul>
+<p>这一次，微软发布了<code>Microsoft.Extensions.AI.*</code>系列包，为开发者带来更加统一的开发体验。可以通过一张图展示它的作用：</p>
+<p><img src="../images/microsoft.extension.ai.png" alt="alt text" /></p>
+<p>类似于<code>EF Core</code>，微软提供一个统一的接口，其他的大语言模型实现接口，通过<code>provider</code>的形式提供给开发者。</p>
+<h2 id="我的建议">我的建议</h2>
+<p>我尝试将我的项目更新到.NET9的，但由于上面说的各种原因，最终我还是将目标框架设置为了<code>NET8</code>，虽然目标框架是.NET8，但仍然可以使用很多<code>9.0</code>的包，它们都兼容.NET8。不过有一个例外：<code>Microsoft.AspNetCore.Authentication.JwtBearer</code>这个包，不兼容.NET8。</p>
+<p>能否升级.NET9，一个前提是<strong>你依赖的类库都能够支持.NET9</strong>，在此前提下，如果你</p>
+<ul>
+<li>是类库的开发者，且追求极致的性能和内存优化</li>
+<li>你的应用大规模部署，想通过提高性能和减少内存占用来减少成本</li>
+<li>.NET9中提供了你需要的新特性</li>
+</ul>
+<p>那么你可以考虑升级到.NET9。</p>
+<p>✨ 我的建议是，先安装.NET9 SDK，以享受在cli方面的一些改进，至于项目要不要以.NET9为目标，根据个人情况来定。</p>
+
+        </div>
+        <div class="w-1/4 mt-1 max-sm:hidden sm:flex">
+            <div class="toc-block sticky top-2">
+ <p class="text-lg">内容大纲</p>
+<ul class="toc">
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#性能更新'">性能更新</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#功能性更新'">功能性更新</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#asp.net-core'">ASP.NET Core</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#c#-13'">C# 13</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#其他的更新'">其他的更新</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#我的建议'">我的建议</a>
+</li>
+</ul>
+</div>
+
+        </div>
+    </div>
+    <div class="footer py-2 bottom-0 w-full fixed">
+      <div class="container mx-auto text-center">
+        <p class="text-neutral-600 dark:text-neutral-300 mb-0">
+        独思
+        <a class="text-blue-600" target="_blank" href="https://github.com/AterDev/EasyBlog">Powered by EasyDocs</a>
+        </p>
+      </div>
+    </div>
+</body>
+</html>
