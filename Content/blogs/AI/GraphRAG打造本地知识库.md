@@ -8,9 +8,14 @@
 
 ### 自然语言处理
 
-我们需要一些模型来帮助我们完成相关的工作。
+我们需要一些模型来帮助我们完成相关的工作，由于我们需要同时处理中文和英文的文本，我们选择两个模型来处理。
 
-这里我们选择模型:[`distilbert-base-multilingual-cased-mapa_coarse-ner`](https://huggingface.co/dmargutierrez/distilbert-base-multilingual-cased-mapa_coarse-ner)，该模型是基于谷歌的`bert-base-multilingual-cased`模型微调的，更方便我们的使用。
+中文识别我们选择[`bert-base-chinese`](https://huggingface.co/google-bert/bert-base-chinese)，它是谷歌发布的中文预训练模型，支持中文文本的处理。
+
+英文模型我们选择[`bert-base-NER`](https://huggingface.co/dslim/bert-base-NER)。
+
+> [!TIP]
+> 经测试，多语言版本的`bert-base-multilingual-cased`模型在中文文本的处理上效果并不理想，建议使用中文的`bert-base-chinese`模型。
 
 安装导出工具：
 
@@ -21,7 +26,10 @@ pip install optimum[exporters]
 执行导出
 
 ```powershell
-optimum-cli export onnx --model dmargutierrez/distilbert-base-multilingual-cased-mapa_coarse-ner mBERT/
+
+optimum-cli export onnx --model google-bert/bert-base-chinese bert_chinese/
+optimum-cli export onnx --model dslim/bert-base-NER bert_base/
+
 ```
 
 > [!TIP]
