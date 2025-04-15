@@ -523,5 +523,253 @@ public class Worker(
 > [!IMPORTANT]
 > 这个流程不是固定的，是需要根据实际情况来调整的。
 
+根据以上思路，我们编写一个`SearchService`类来处理查询：
+
+```csharp
+public class SearchService
+{
+    private readonly ITextEmbeddingGenerationService _embed;
+    private readonly IVectorStoreRecordCollection<Guid, DocumentEmbedding> _collection;
+    private readonly KnowledgeProcessing _knowledgeProcessing;
+    private readonly ILogger<SearchService> _logger;
+
+    public SearchService(
+        ITextEmbeddingGenerationService embed,
+        IVectorStore _vectorStore,
+        IConfiguration configuration,
+        ILogger<SearchService> logger,
+        KnowledgeProcessing knowledgeProcessing)
+    {
+        _embed = embed;
+        _logger = logger;
+        _collection = _vectorStore.GetCollection<Guid, DocumentEmbedding>(DocumentEmbedding.DocName);
+        _knowledgeProcessing = knowledgeProcessing;
+
+        var dataPath = configuration["Resources:DataPath"];
+        if (dataPath == null)
+        {
+            return;
+        }
+        if (!Directory.Exists(dataPath))
+        {
+            Directory.CreateDirectory(dataPath);
+        }
+
+        var dataFilePath = Path.Combine(dataPath, "knowledge.json");
+        // 加载知识图谱
+        if (File.Exists(dataFilePath))
+        {
+            var jsonContent = File.ReadAllText(dataFilePath);
+            var knowledgeGraph = JsonSerializer.Deserialize<KnowledgeGraphDto>(jsonContent);
+
+            var relationDtos = knowledgeGraph?.RelationDtos
+                .Where(r => !string.IsNullOrWhiteSpace(r.Target) && !string.IsNullOrWhiteSpace(r.Subject))
+                .ToList();
+
+            relationDtos?.ForEach(GraphDataProcessing.AddRelation);
+        }
+    }
+
+
+    /// <summary>
+    /// 搜索
+    /// </summary>
+    /// <param name="searchContent"></param>
+    /// <param name="searchCount"></param>
+    /// <returns></returns>
+    public async Task<List<string>> SearchAsync(string searchContent, int searchCount = 10)
+    {
+        var searchResults = new List<string>();
+        // 向量搜索
+        var vectorResults = await SearchVectorAsync(searchContent);
+
+        if (vectorResults?.Length > 0)
+        {
+            searchResults.AddRange(vectorResults ?? []);
+        }
+
+        // 搜索知识图谱，再进行向量搜索
+        var relationQueryList = await SearchGraphAsync(searchContent);
+
+        if (relationQueryList?.Length > 0)
+        {
+            relationQueryList = [.. relationQueryList.Take(searchCount)];
+            foreach (var item in relationQueryList)
+            {
+                _logger.LogInformation("🔍 Graph knowledge search: {item}", item);
+                var vectorResult = await SearchVectorAsync(item);
+                if (vectorResult != null && vectorResult.Length > 0)
+                {
+                    searchResults.AddRange(vectorResult);
+                }
+            }
+        }
+        else
+        {
+            _logger.LogWarning("⚠️ No Graph knowledge itmes");
+        }
+        return searchResults;
+    }
+
+
+    /// <summary>
+    /// 向量搜索
+    /// </summary>
+    /// <param name="searchContent"></param>
+    /// <returns></returns>
+    public async Task<string[]?> SearchVectorAsync(string searchContent)
+    {
+        var results = Array.Empty<string>();
+        var vector = await _embed.GenerateEmbeddingAsync(searchContent);
+        var result = await _collection.VectorizedSearchAsync(vector, new VectorSearchOptions<DocumentEmbedding>
+        {
+            Top = 2,
+        });
+        if (await result.Results.AnyAsync())
+        {
+            await foreach (var item in result.Results)
+            {
+                if (!string.IsNullOrEmpty(item.Record.Content))
+                {
+                    results = [.. results, item.Record.Content];
+                }
+            }
+        }
+        return results;
+    }
+
+    /// <summary>
+    /// 实体识别
+    /// </summary>
+    /// <param name="searchContent"></param>
+    /// <returns></returns>
+    public async Task<string[]?> SearchNerAsync(string searchContent)
+    {
+        var res = Array.Empty<string>();
+        var data = await _knowledgeProcessing.NerAsync(searchContent);
+
+        if (data != null)
+        {
+            if (data.TechNoun != null)
+            {
+                foreach (var item in data.TechNoun)
+                {
+                    if (!string.IsNullOrWhiteSpace(item))
+                    {
+                        res = [.. res, item];
+                    }
+                }
+            }
+            if (data.ProperNoun != null)
+            {
+                foreach (var item in data.ProperNoun)
+                {
+                    if (!string.IsNullOrWhiteSpace(item))
+                    {
+                        res = [.. res, item];
+                    }
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(data.Summary))
+            {
+                res = [.. res, data.Summary];
+            }
+        }
+
+        var logRes = string.Join(",", res);
+        _logger.LogInformation("➡️ Ner result: {res}", logRes);
+        return res;
+    }
+
+    /// <summary>
+    /// 搜索知识图谱
+    /// </summary>
+    /// <param name="searchContent"></param>
+    /// <returns></returns>
+    public async Task<string[]?> SearchGraphAsync(string searchContent)
+    {
+        var results = Array.Empty<string>();
+        var nerResults = await SearchNerAsync(searchContent);
+        if (nerResults?.Length == 0)
+        {
+            return null;
+        }
+
+        var relationResult = new List<RelationDto>();
+        foreach (var ner in nerResults!)
+        {
+            var relations = GraphDataProcessing.QueryRelations(ner, ner);
+            if (relations != null)
+            {
+                relationResult.AddRange(relations);
+            }
+        }
+
+        relationResult = [.. relationResult.Distinct()];
+        if (relationResult.Count > 0)
+        {
+            foreach (var item in relationResult)
+            {
+                if (!string.IsNullOrWhiteSpace(item.Target))
+                {
+                    results = [.. results, $"{item.Subject} {item.Relation} {item.Target}"];
+                }
+            }
+        }
+        return results;
+    }
+}
+```
+
+然后在接口中使用`SearchService`来处理查询：
+
+```csharp
+public static async Task SearchAsync(
+    HttpContext httpContext,
+    QuestionModel question,
+    IChatCompletionService chat,
+    SearchService search
+)
+{
+    httpContext.Response.ContentType = "text/plain;charset=utf-8";
+    var searchResults = await search.SearchAsync(question.Content);
+    string searchContent = string.Empty;
+
+    if (searchResults?.Count > 0)
+    {
+        foreach (var item in searchResults)
+        {
+            searchContent += item + Environment.NewLine;
+        }
+    }
+
+    string systemPrompt = $@"
+以下是从本地文档中搜索到的相关内容：
+{searchContent}
+
+仅根据上述搜索结果来回答用户的问题。如果没有足够的内容来回答，则提示没有找到相关信息。
+";
+
+    ChatHistory history = [];
+    history.AddUserMessage(question.Content);
+    history.AddSystemMessage(systemPrompt);
+
+    var response = await chat.GetChatMessageContentsAsync(history);
+    foreach (var item in response)
+    {
+        await httpContext.Response.WriteAsync(item.Content ?? "");
+    }
+    await httpContext.Response.CompleteAsync();
+}
+```
+
 > [!TIP]
 > 完整的[项目源码示例](https://github.com/niltor/RAGSample).
+
+## 总结
+
+为了得到更准确的答案，我们使用知识图谱来关联数据，增强上下文信息。
+
+这里我们使用了本地小模型来处理`实体识别和关系抽取`的功能。由于小模型的能力有限，会出现错误的识别和抽取，尤其是无法正确返回`Json`格式的内容，会导致我们缺失一些关联信息。
+
+可以采用成熟的大模型来处理这块内容。
