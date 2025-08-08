@@ -16,4 +16,11 @@ Manager是通过实体进行生成的，通过解析实体，获取相关信息�
 
 - 解析指定的实体类`Entity`
 - 解析所有继承`ContextBase`的`DbContext`
-  - 获取`Entity`所在的`DbContext`，如果有多个取第一个
+  - 获取`Entity`所在的`DbContext`，如果有多个则取第一个，作为生成时的`TDbContext`
+- 生成Manager类
+  - 添加时，是否有关联的必填属性
+  - 更新时
+  - 筛选时
+
+通过模型的定义，以下信息可被用来改善生成的代码，让生成更加智能化：
+
