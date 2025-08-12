@@ -39,6 +39,7 @@ DTO全局忽略以下属性(暂不支持处理)：
 
 - 忽略 "Id", "CreatedTime", "UpdatedTime", "IsDeleted"等基础属性
 - 必须是可赋值的属性，即有`set`方法。
+- 不再保留原`required`关键词限制，以便更好的创建实例。
 - 对于导航属性，会进行以下处理：
   - 忽略Collection && SkipNavigation导航属性
 
@@ -68,8 +69,6 @@ FilterDto生成内容如下：
 - 忽略最大长度在于1000的字符串属性
 - 保留必需属性(但不为导航属性)
 - 包括枚举属性
-
-
 
 ## UpdateDto
 
