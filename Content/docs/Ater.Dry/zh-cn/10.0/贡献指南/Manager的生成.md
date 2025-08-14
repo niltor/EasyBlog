@@ -15,12 +15,54 @@ Manager是通过实体进行生成的，通过解析实体，获取相关信息�
 ## 生成逻辑
 
 - 解析指定的实体类`Entity`
-- 解析所有继承`ContextBase`的`DbContext`
+- 获取继承`DbContext`的抽象基类。
+- 解析所有继承抽象基类的`DbContext`实现类。
   - 获取`Entity`所在的`DbContext`，如果有多个则取第一个，作为生成时的`TDbContext`
 - 生成Manager类
-  - 添加时，是否有关联的必填属性
-  - 更新时
-  - 筛选时
+  - 将获取到的实现类作为泛型参数`TDbContext`
+  - 如果有关联的
+  
+## 生成添加代码
 
-通过模型的定义，以下信息可被用来改善生成的代码，让生成更加智能化：
+为了更好的说明，我们在一个实际场景下进行说明。
 
+比如，现有`User/Catalog/Blog`三个实体类，用户可以有多个Catalog，Catalog可以有多个Blog。Catalog本身是树型结构，可以有多层。
+
+现在我们来生成添加`Blog`的逻辑，我们尽可能将该操作流程化：
+  
+Manager
+
+```csharp
+public async Task<Blog?> GetOwnedAsync(Guid id, Guid userId)
+{
+    var query = _dbSet.Where(q => q.Id == id);
+    query = query.Where(q => q.UserId == userId);
+    return await query.FirstOrDefaultAsync();
+}
+
+public async Task<bool> IsValidateCatalogAsync(Guid catalogId, Guid userId)
+{
+    return await _dbContext
+        .Set<Catalog>()
+        .Where(q => q.Id == catalogId && q.UserId == userId)
+        .AnyAsync();
+}
+```
+
+
+Controller
+
+```csharp
+[HttpPost]
+public async Task<ActionResult<Guid?>> AddAsync(BlogAddDto dto)
+{
+    if(!await _manager.IsValidateCatalogAsync(dto.CatalogId,_user.UserId))
+    {
+        return NotFound(Localizer.NotFoundResource);
+    }
+
+    var id = await _manager.AddAsync(dto);
+    return id == null ? Problem(Localizer.AddFailed) : id;
+}
+
+```
