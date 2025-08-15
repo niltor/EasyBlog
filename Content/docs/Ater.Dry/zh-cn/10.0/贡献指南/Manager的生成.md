@@ -22,15 +22,24 @@ Manager是通过实体进行生成的，通过解析实体，获取相关信息�
   - 将获取到的实现类作为泛型参数`TDbContext`
   - 如果有关联的
   
-## 生成添加代码
+## 常规方法
 
 为了更好的说明，我们在一个实际场景下进行说明。
 
 比如，现有`User/Catalog/Blog`三个实体类，用户可以有多个Catalog，Catalog可以有多个Blog。Catalog本身是树型结构，可以有多层。
 
 现在我们来生成添加`Blog`的逻辑，我们尽可能将该操作流程化：
-  
-Manager
+
+
+## 额外方法
+
+
+```csharp
+public async Task<bool> IsOwnedAsync(Guid id, Guid userId)
+{
+    return await Queryable.AnyAsync(q => q.Id == id && q.User.Id == userId);
+}
+```
 
 ```csharp
 public async Task<Blog?> GetOwnedAsync(Guid id, Guid userId)
@@ -48,6 +57,7 @@ public async Task<bool> IsValidateCatalogAsync(Guid catalogId, Guid userId)
         .AnyAsync();
 }
 ```
+
 
 
 Controller
