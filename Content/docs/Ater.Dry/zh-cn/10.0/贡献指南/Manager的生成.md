@@ -14,13 +14,10 @@ Manager是通过实体进行生成的，通过解析实体，获取相关信息�
 
 ## 生成逻辑
 
-- 解析指定的实体类`Entity`
-- 获取继承`DbContext`的抽象基类。
-- 解析所有继承抽象基类的`DbContext`实现类。
-  - 获取`Entity`所在的`DbContext`，如果有多个则取第一个，作为生成时的`TDbContext`
+- 通过`DbContextParseHelper`解析指定的实体类`Entity`，最终获取`EntityInfo`对象。
 - 生成Manager类
-  - 将获取到的实现类作为泛型参数`TDbContext`
-  - 如果有关联的
+  - 将实体所属DbContext实现类作为泛型参数`TDbContext`
+  - 实体的模模块特性，用来确定`Manager`生成时的模块目录
   
 ## 常规方法
 
@@ -28,27 +25,75 @@ Manager是通过实体进行生成的，通过解析实体，获取相关信息�
 
 比如，现有`User/Catalog/Blog`三个实体类，用户可以有多个Catalog，Catalog可以有多个Blog。Catalog本身是树型结构，可以有多层。
 
-现在我们来生成添加`Blog`的逻辑，我们尽可能将该操作流程化：
-
-
-## 额外方法
-
+对于一个实体，会生成通用的的方法:
 
 ```csharp
-public async Task<bool> IsOwnedAsync(Guid id, Guid userId)
+public async Task<Guid?> AddAsync(BlogAddDto dto)
 {
-    return await Queryable.AnyAsync(q => q.Id == id && q.User.Id == userId);
+    var entity = dto.MapTo<Blog>();
+    // add other logic
+    return await base.AddAsync(entity) ? entity.Id : null;
+}
+
+public async Task<bool> UpdateAsync(Blog entity, BlogUpdateDto dto)
+{
+    entity.Merge(dto);
+    // add other logic
+    return await base.UpdateAsync(entity);
+}
+
+public async Task<BlogDetailDto?> GetDetailAsync(Guid id)
+{
+    return await FindAsync<BlogDetailDto>(e => e.Id == id);
+}
+
+public async Task<bool> HasConflictAsync(string unique, Guid? id = null)
+{
+    // custom unique check
+    return await _dbSet
+        .Where(q => q.Id.ToString() == unique)
+        .WhereNotNull(id, q => q.Id != id)
+        .AnyAsync();
+}
+
+public new async Task<bool?> DeleteAsync(List<Guid> ids, bool softDelete = true)
+{
+    return await base.DeleteAsync(ids, softDelete);
 }
 ```
 
+以上方法依次为：添加/修改/获取详情/检查唯一性/删除。
+
+> [!CAUTION]
+> 其中唯一性判断尝试根据唯一索引进行判断，如果没有唯一索引，则需要自行实现。
+
+## 额外方法
+
+额外方法，是指根据实体关系的分析，生成的额外方法，以便在控制器中使用。
+
 ```csharp
+/// <summary>
+/// get owned Blog
+/// </summary>
 public async Task<Blog?> GetOwnedAsync(Guid id, Guid userId)
 {
     var query = _dbSet.Where(q => q.Id == id);
     query = query.Where(q => q.UserId == userId);
+
     return await query.FirstOrDefaultAsync();
 }
 
+/// <summary>
+/// has Blog
+/// </summary>
+public async Task<bool> IsOwnedAsync(Guid id, Guid userId)
+{
+    return await Queryable.AnyAsync(q => q.Id == id && q.UserId == userId);
+}
+
+/// <summary>
+/// validate Catalog owned by user
+/// </summary>
 public async Task<bool> IsValidateCatalogAsync(Guid catalogId, Guid userId)
 {
     return await _dbContext
@@ -57,6 +102,9 @@ public async Task<bool> IsValidateCatalogAsync(Guid catalogId, Guid userId)
         .AnyAsync();
 }
 ```
+
+## 分页查询处理
+
 
 
 
