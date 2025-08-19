@@ -28,9 +28,12 @@ public class RestControllerBase<TManager>(
 
 ## 生成逻辑
 
+controller的生成需要先获取以下信息
+
 - 通过`DbContextParseHelper`解析指定的实体类`Entity`，最终获取`EntityInfo`对象。
-- 根据选择服务项目，判断是否引用了`SystemMod`(可配置)，以便区分是否具有管理权限。
-- 生成管理后台的Controller类或生成普通的Controller类
+- 用户选择的服务项目，判断是否引用了`SystemMod`(可配置)，以便区分是否具有管理权限。
+- 前置步骤生成的`Dto`的信息，通过缓存获取
+- 解决方案配置信息
   
 接口的生成，主要是通过调用`Manager`的相关方法来实现。根据`RestApi`的规范，生成的接口方法包括：
 
@@ -51,10 +54,8 @@ public class RestControllerBase<TManager>(
 [HttpPost("filter")]
 public async Task<ActionResult<PageList<BlogItemDto>>> FilterAsync(BlogFilterDto filter)
 {
-    if (!_user.IsAdmin)
-    {
-        filter.UserId = _user.UserId;
-    }
+
+    filter.UserId = _user.UserId;
     return await _manager.ToPageAsync(filter);
 }
 
